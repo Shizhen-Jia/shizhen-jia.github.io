@@ -1,0 +1,83 @@
+---
+const name = "Shizhen Jia";
+const title = "PhD Student @ NYU WIRELESS";
+const interests = [
+  "Wireless Communications",
+  "LEO / NTN Systems",
+  "Anti-Jamming & Null-Forming",
+  "System-Level Simulation"
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{name}</title>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #0f1220;
+        color: #eaeaf0;
+      }
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem;
+      }
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+      }
+      h2 {
+        font-weight: 400;
+        color: #b5b5d6;
+        margin-top: 0;
+      }
+      ul {
+        margin-top: 2rem;
+      }
+      li {
+        margin-bottom: 0.6rem;
+      }
+      a {
+        color: #8ab4f8;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .links {
+        margin-top: 2rem;
+      }
+      .links a {
+        margin-right: 1.2rem;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>{name}</h1>
+      <h2>{title}</h2>
+
+      <p>
+        I am a PhD student at <strong>NYU WIRELESS</strong>, working on
+        non-terrestrial networks (NTN), LEO satellite systems, and
+        anti-jamming techniques for future wireless communications.
+      </p>
+
+      <ul>
+        {interests.map(i => <li>{i}</li>)}
+      </ul>
+
+      <div class="links">
+        <a href="https://github.com/Shizhen-Jia" target="_blank">GitHub</a>
+        <a href="#" target="_blank">CV</a>
+        <a href="#" target="_blank">Publications</a>
+      </div>
+    </main>
+  </body>
+</html>

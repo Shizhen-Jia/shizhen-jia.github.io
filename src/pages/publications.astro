@@ -1,0 +1,41 @@
+---
+const pubs = [
+  {
+    title: "Your Paper Title Here",
+    venue: "IEEE Globecom 2025 (submitted)",
+    links: [
+      { label: "arXiv", href: "#" },
+      { label: "PDF", href: "#" },
+      { label: "Code", href: "https://github.com/Shizhen-Jia" },
+    ],
+  },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Publications | Shizhen Jia</title>
+    <meta name="viewport" content="width=device-width" />
+  </head>
+  <body style="font-family:system-ui;margin:0;background:#0f1220;color:#eaeaf0;">
+    <main style="max-width:900px;margin:0 auto;padding:3rem 1.5rem;">
+      <a href="/" style="color:#8ab4f8;text-decoration:none;">← Home</a>
+      <h1 style="margin-top:1rem;">Publications</h1>
+
+      {pubs.map(p => (
+        <section style="margin:1.5rem 0;padding:1.2rem;border:1px solid #262a3f;border-radius:14px;">
+          <h2 style="margin:0 0 .4rem 0;">{p.title}</h2>
+          <p style="margin:.2rem 0 1rem 0;color:#b5b5d6;">{p.venue}</p>
+          <div>
+            {p.links.map(l => (
+              <a href={l.href} target="_blank" style="margin-right:1rem;color:#8ab4f8;text-decoration:none;">
+                {l.label}
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </main>
+  </body>
+</html>

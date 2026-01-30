@@ -1,4 +1,4 @@
----
+<!-- ---
 const pubs = [
   {
     title: "Your Paper Title Here",
@@ -38,4 +38,70 @@ const pubs = [
       ))}
     </main>
   </body>
-</html>
+</html> -->
+
+
+
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Put your real papers here. You can add/remove entries any time.
+const publications = [
+  {
+    title: "Paper Title (replace me)",
+    authors: "Shizhen Jia, ...",
+    venue: "IEEE Globecom 2025 (submitted)",
+    year: "2025",
+    links: [
+      { label: "PDF", href: "#" },
+      { label: "arXiv", href: "#" },
+      { label: "Code", href: "https://github.com/Shizhen-Jia" },
+    ],
+    keywords: ["NTN", "Anti-Jamming"],
+  },
+  {
+    title: "Paper Title (replace me)",
+    authors: "Shizhen Jia, ...",
+    venue: "IEEE ICC 2026 (planned)",
+    year: "2026",
+    links: [
+      { label: "PDF", href: "#" },
+      { label: "Code", href: "https://github.com/Shizhen-Jia" },
+    ],
+    keywords: ["System-level", "LEO"],
+  },
+];
+---
+
+<BaseLayout title="Publications | Shizhen Jia" active="publications">
+  <h1>Publications</h1>
+  <p>
+    Selected publications and preprints. (Replace the placeholders with your real entries.)
+  </p>
+
+  <div style="display:grid; gap:16px; margin-top:18px;">
+    {publications.map((p) => (
+      <section class="card" style="padding:18px;">
+        <div style="display:flex; gap:12px; justify-content:space-between; flex-wrap:wrap;">
+          <h2 style="margin:0; font-size:20px; color:var(--text);">{p.title}</h2>
+          <span class="pill">{p.year}</span>
+        </div>
+
+        <p style="margin:10px 0 8px;"><strong>Authors:</strong> {p.authors}</p>
+        <p style="margin:0 0 12px;"><strong>Venue:</strong> {p.venue}</p>
+
+        <div class="row" style="margin-top:10px;">
+          {p.keywords.map((k) => (
+            <span class="pill">{k}</span>
+          ))}
+        </div>
+
+        <div class="row" style="margin-top:14px;">
+          {p.links.map((l) => (
+            <a class="pill" href={l.href} target="_blank" rel="noopener">{l.label} ↗</a>
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+</BaseLayout>

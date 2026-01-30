@@ -1,4 +1,4 @@
----
+<!-- ---
 const projects = [
   {
     name: "NTN Anti-Jamming",
@@ -44,4 +44,56 @@ const projects = [
     </main>
   </body>
 </html>
+ -->
 
+
+ ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const projects = [
+  {
+    name: "NTN Anti-Jamming",
+    desc: "Simulation and analysis of null-forming / interference suppression for LEO/NTN scenarios.",
+    links: [
+      { label: "Code", href: "https://github.com/Shizhen-Jia" },
+    ],
+    tags: ["NTN", "Anti-Jamming", "Beamforming"],
+  },
+  {
+    name: "System-level NTN Simulation",
+    desc: "From link-level methods to system-level evaluation with realistic geometry and overhead modeling.",
+    links: [
+      { label: "Code", href: "https://github.com/Shizhen-Jia" },
+    ],
+    tags: ["System-level", "LEO", "Simulation"],
+  },
+];
+---
+
+<BaseLayout title="Projects | Shizhen Jia" active="projects">
+  <h1>Projects</h1>
+  <p>
+    Selected projects related to NTN/LEO systems, interference suppression, and system-level simulation.
+  </p>
+
+  <div style="display:grid; gap:16px; margin-top:18px;">
+    {projects.map((p) => (
+      <section class="card" style="padding:18px;">
+        <h2 style="margin:0 0 8px; font-size:20px; color:var(--text);">{p.name}</h2>
+        <p style="margin:0 0 12px;">{p.desc}</p>
+
+        <div class="row" style="margin-top:10px;">
+          {p.tags.map((t) => (
+            <span class="pill">{t}</span>
+          ))}
+        </div>
+
+        <div class="row" style="margin-top:14px;">
+          {p.links.map((l) => (
+            <a class="pill" href={l.href} target="_blank" rel="noopener">{l.label} ↗</a>
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+</BaseLayout>

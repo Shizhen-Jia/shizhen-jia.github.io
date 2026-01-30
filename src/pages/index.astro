@@ -1,4 +1,4 @@
----
+<!-- ---
 const name = "Shizhen Jia";
 const title = "PhD Student @ NYU WIRELESS";
 const interests = [
@@ -81,4 +81,37 @@ const interests = [
       </div>
     </main>
   </body>
-</html>
+</html> -->
+
+
+
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Shizhen Jia | PhD Student @ NYU WIRELESS"
+  active="home"
+>
+  <h1>Shizhen Jia</h1>
+  <h2>PhD Student @ NYU WIRELESS</h2>
+
+  <p>
+    I am a PhD student at <strong>NYU WIRELESS</strong>, working on non-terrestrial networks (NTN),
+    LEO satellite systems, and anti-jamming techniques for future wireless communications.
+  </p>
+
+  <div class="row">
+    <span class="pill">Wireless Communications</span>
+    <span class="pill">LEO / NTN Systems</span>
+    <span class="pill">Anti-Jamming & Null-Forming</span>
+    <span class="pill">System-Level Simulation</span>
+  </div>
+
+  <div class="row" style="margin-top:22px;">
+    <a class="pill" href="/projects">View Projects →</a>
+    <a class="pill" href="/publications">View Publications →</a>
+    <a class="pill" href="/cv">Open CV →</a>
+  </div>
+</BaseLayout>
+

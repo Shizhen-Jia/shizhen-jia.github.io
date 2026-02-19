@@ -25,7 +25,11 @@ const publications = [
 const paperLabel = (url) => (url.includes("arxiv.org") ? "Open arXiv" : "Open Paper");
 ---
 
-<BaseLayout title="Publications | Shizhen Jia" active="publications">
+<BaseLayout
+  title="Publications | Shizhen Jia"
+  description="Publications and preprints by Shizhen Jia, including IEEE GLOBECOM and IEEE ICC accepted papers."
+  active="publications"
+>
   <style>
     .pub-page {
       display: grid;

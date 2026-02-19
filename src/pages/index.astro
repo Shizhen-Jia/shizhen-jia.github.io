@@ -10,6 +10,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     .home-wrap {
       position: relative;
       isolation: isolate;
+      display: grid;
+      gap: 18px;
     }
 
     .home-wrap::before,
@@ -124,6 +126,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       margin: 0;
       color: var(--muted);
       line-height: 1.45;
+    }
+
+    .focus-mini {
+      margin: 10px 0 0;
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(126, 216, 197, 0.22);
+      background: rgba(126, 216, 197, 0.08);
+      color: #b9dfd9;
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: 0.01em;
     }
 
     .social-row {
@@ -368,6 +384,32 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       margin-top: 2px;
     }
 
+    .hobby-stage {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(126, 216, 197, 0.26);
+      padding: 18px;
+      background:
+        radial-gradient(130% 180% at 100% 0%, rgba(126, 216, 197, 0.2), transparent 56%),
+        linear-gradient(145deg, rgba(138, 180, 248, 0.09), rgba(255, 255, 255, 0.02) 58%),
+        rgba(255, 255, 255, 0.02);
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.08), 0 14px 36px rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(4px);
+    }
+
+    .hobby-stage::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -90px;
+      top: -80px;
+      border-radius: 999px;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(126, 216, 197, 0.24), rgba(126, 216, 197, 0) 72%);
+    }
+
     .life-subtitle {
       margin: 0 0 10px;
       color: #9fc8ff;
@@ -559,6 +601,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <h1 class="name">Shizhen Jia</h1>
       <p class="role">Ph.D. Candidate in Electrical Engineering</p>
       <p class="affil">NYU WIRELESS, New York University</p>
+      <p class="focus-mini">NTN · LEO · Anti-Jamming</p>
 
       <div class="social-row">
         <a
@@ -651,27 +694,28 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         </div>
       </section>
 
-      <section class="panel reveal delay-5">
-        <h2 class="section-title"><span class="section-dot"></span>Beyond Research</h2>
-        <p class="life-subtitle">Life Outside The Lab</p>
-        <div class="life-panel">
-          <figure class="life-photo-wrap">
-            <img class="life-photo" src="/Interests/ski1.jpg" alt="Skiing in winter mountains" loading="lazy" />
-          </figure>
-          <div class="life-copy">
-            <p>
-              Outside the lab, I enjoy alpine skiing. It is a way to stay energized, reset focus, and
-              keep a balance between deep research work and outdoor challenges.
-            </p>
-            <div class="life-badges">
-              <span class="life-badge">Skiing</span>
-              <span class="life-badge">Outdoor</span>
-              <span class="life-badge">Adventure</span>
-            </div>
+    </div>
+    </div>
+
+    <section class="hobby-stage reveal delay-5">
+      <h2 class="section-title"><span class="section-dot"></span>Beyond Research</h2>
+      <p class="life-subtitle">Life Outside The Lab</p>
+      <div class="life-panel">
+        <figure class="life-photo-wrap">
+          <img class="life-photo" src="/Interests/ski1.jpg" alt="Skiing in winter mountains" loading="lazy" />
+        </figure>
+        <div class="life-copy">
+          <p>
+            Outside the lab, I enjoy alpine skiing. It is a way to stay energized, reset focus, and
+            keep a balance between deep research work and outdoor challenges.
+          </p>
+          <div class="life-badges">
+            <span class="life-badge">Skiing</span>
+            <span class="life-badge">Outdoor</span>
+            <span class="life-badge">Adventure</span>
           </div>
         </div>
-      </section>
-    </div>
-    </div>
+      </div>
+    </section>
   </div>
 </BaseLayout>

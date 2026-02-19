@@ -2,12 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const lifePhotos = [
-  { src: "/Interests/ski1.jpg", alt: "Skiing in winter mountains" },
-  { src: "/Interests/ski2.jpg", alt: "Skiing on alpine slopes" },
-  { src: "/Interests/ski3.jpg", alt: "Skiing in snowy terrain" },
+  "/Interests/ski1.jpg",
+  "/Interests/ski2.jpg",
+  "/Interests/ski3.jpg",
 ];
-const lifeSlideSeconds = 4;
-const lifeTotalSeconds = Math.max(1, lifePhotos.length) * lifeSlideSeconds;
 ---
 
 <BaseLayout
@@ -474,24 +472,28 @@ const lifeTotalSeconds = Math.max(1, lifePhotos.length) * lifeSlideSeconds;
       background: rgba(255, 255, 255, 0.02);
     }
 
-    .life-photo {
+    .life-carousel {
       position: absolute;
       inset: 0;
-      opacity: 0;
-      animation-name: life-crossfade;
-      animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
     }
 
-    .life-photo-single,
-    .life-photo {
+    .life-photo-slide {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
       display: block;
+      opacity: 0;
       transform: scale(1.02);
-      transition: transform 480ms ease;
+      transition: transform 480ms ease, opacity 280ms ease;
+      pointer-events: none;
+    }
+
+    .life-photo-slide.is-active {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     .life-photo-wrap::after {
@@ -503,9 +505,36 @@ const lifeTotalSeconds = Math.max(1, lifePhotos.length) * lifeSlideSeconds;
         linear-gradient(180deg, rgba(11, 16, 32, 0.02), rgba(11, 16, 32, 0.55));
     }
 
-    .life-panel:hover .life-photo,
-    .life-panel:hover .life-photo-single {
+    .life-panel:hover .life-photo-slide {
       transform: scale(1.06);
+    }
+
+    .life-nav {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      z-index: 2;
+      display: flex;
+      gap: 8px;
+    }
+
+    .life-nav-btn {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      background: rgba(11, 16, 32, 0.56);
+      color: #d8e6f7;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+    }
+
+    .life-nav-btn:hover {
+      background: rgba(78, 157, 255, 0.22);
+      border-color: rgba(138, 180, 248, 0.52);
+      transform: translateY(-1px);
     }
 
     .life-count {
@@ -616,24 +645,6 @@ const lifeTotalSeconds = Math.max(1, lifePhotos.length) * lifeSlideSeconds;
       }
     }
 
-    @keyframes life-crossfade {
-      0% {
-        opacity: 0;
-      }
-      7% {
-        opacity: 1;
-      }
-      43% {
-        opacity: 1;
-      }
-      56% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 0;
-      }
-    }
-
     @media (max-width: 980px) {
       .home {
         grid-template-columns: 1fr;
@@ -684,17 +695,8 @@ const lifeTotalSeconds = Math.max(1, lifePhotos.length) * lifeSlideSeconds;
         transition: none;
       }
 
-      .life-photo {
+      .life-photo-slide {
         transition: none;
-      }
-
-      .life-photo {
-        animation: none !important;
-        opacity: 0 !important;
-      }
-
-      .life-photo:first-child {
-        opacity: 1 !important;
       }
     }
   </style>
@@ -809,26 +811,25 @@ const lifeTotalSeconds = Math.max(1, lifePhotos.length) * lifeSlideSeconds;
       <p class="life-subtitle">Life Outside The Lab</p>
       <div class="life-panel">
         <figure class="life-photo-wrap">
-          {lifePhotos.length > 1 ? (
+          <div class="life-carousel" data-life-carousel>
+            {lifePhotos.map((photo, idx) => (
+              <img
+                class={`life-photo-slide ${idx === 0 ? "is-active" : ""}`}
+                src={photo}
+                alt=""
+                loading="lazy"
+                data-life-slide
+              />
+            ))}
+          </div>
+          {lifePhotos.length > 1 && (
             <>
-              {lifePhotos.map((photo, idx) => (
-                <img
-                  class="life-photo"
-                  src={photo.src}
-                  alt={photo.alt}
-                  loading="lazy"
-                  style={`animation-duration:${lifeTotalSeconds}s; animation-delay:${idx * lifeSlideSeconds}s;`}
-                />
-              ))}
-              <span class="life-count">{lifePhotos.length} photos</span>
+              <div class="life-nav">
+                <button class="life-nav-btn" type="button" data-life-prev aria-label="Previous photo">&lt;</button>
+                <button class="life-nav-btn" type="button" data-life-next aria-label="Next photo">&gt;</button>
+              </div>
+              <span class="life-count" data-life-count>1 / {lifePhotos.length}</span>
             </>
-          ) : (
-            <img
-              class="life-photo-single"
-              src={lifePhotos[0].src}
-              alt={lifePhotos[0].alt}
-              loading="lazy"
-            />
           )}
         </figure>
         <div class="life-copy">
@@ -845,4 +846,39 @@ const lifeTotalSeconds = Math.max(1, lifePhotos.length) * lifeSlideSeconds;
       </div>
     </section>
   </div>
+
+  <script is:inline>
+    (() => {
+      const carousel = document.querySelector("[data-life-carousel]");
+      if (!carousel) return;
+
+      const slides = Array.from(carousel.querySelectorAll("[data-life-slide]"));
+      const prevBtn = document.querySelector("[data-life-prev]");
+      const nextBtn = document.querySelector("[data-life-next]");
+      const countEl = document.querySelector("[data-life-count]");
+
+      if (!prevBtn || !nextBtn || slides.length <= 1) return;
+
+      let current = 0;
+
+      const render = () => {
+        slides.forEach((slide, idx) => {
+          slide.classList.toggle("is-active", idx === current);
+        });
+        if (countEl) countEl.textContent = `${current + 1} / ${slides.length}`;
+      };
+
+      prevBtn.addEventListener("click", () => {
+        current = (current - 1 + slides.length) % slides.length;
+        render();
+      });
+
+      nextBtn.addEventListener("click", () => {
+        current = (current + 1) % slides.length;
+        render();
+      });
+
+      render();
+    })();
+  </script>
 </BaseLayout>

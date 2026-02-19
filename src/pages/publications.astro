@@ -89,18 +89,6 @@ const paperLabel = (url) => (url.includes("arxiv.org") ? "Open arXiv" : "Open Pa
       flex-wrap: wrap;
     }
 
-    .meta-chip {
-      display: inline-flex;
-      align-items: center;
-      padding: 7px 11px;
-      border-radius: 999px;
-      border: 1px solid rgba(138, 180, 248, 0.28);
-      background: rgba(138, 180, 248, 0.1);
-      color: #c9dcff;
-      font-size: 12px;
-      font-weight: 650;
-    }
-
     .scholar-btn {
       display: inline-flex;
       align-items: center;
@@ -305,7 +293,6 @@ const paperLabel = (url) => (url.includes("arxiv.org") ? "Open arXiv" : "Open Pa
         (arXiv for now, IEEE link after publication).
       </p>
       <div class="hero-tools">
-        <span class="meta-chip">{publications.length} Papers</span>
         <a
           class="scholar-btn"
           href="https://scholar.google.com/citations?user=CzlkP7PJ-SsC&hl=en"

@@ -58,6 +58,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     .delay-2 { animation-delay: 170ms; }
     .delay-3 { animation-delay: 260ms; }
     .delay-4 { animation-delay: 350ms; }
+    .delay-5 { animation-delay: 440ms; }
 
     .profile-card {
       position: relative;
@@ -359,6 +360,93 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     .chips .chip:nth-child(4) { animation-delay: 730ms; }
     .chips .chip:nth-child(5) { animation-delay: 800ms; }
 
+    .life-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: stretch;
+      margin-top: 2px;
+    }
+
+    .life-subtitle {
+      margin: 0 0 10px;
+      color: #9fc8ff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .life-photo-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      min-height: 250px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .life-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transform: scale(1.02);
+      transition: transform 480ms ease;
+    }
+
+    .life-photo-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(11, 16, 32, 0.02), rgba(11, 16, 32, 0.55));
+    }
+
+    .life-panel:hover .life-photo {
+      transform: scale(1.06);
+    }
+
+    .life-copy {
+      border-radius: 14px;
+      border: 1px solid rgba(126, 216, 197, 0.22);
+      background:
+        radial-gradient(110% 160% at 100% 0%, rgba(126, 216, 197, 0.14), transparent 56%),
+        rgba(255, 255, 255, 0.02);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .life-copy p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .life-badges {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .life-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid rgba(126, 216, 197, 0.22);
+      background: rgba(126, 216, 197, 0.08);
+      color: #b9dfd9;
+      padding: 7px 11px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
     @keyframes fade-up {
       from {
         opacity: 0;
@@ -429,6 +517,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       .edu-grid {
         grid-template-columns: 1fr;
       }
+
+      .life-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .life-photo-wrap {
+        min-height: 220px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -447,6 +543,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       }
 
       .icon-btn {
+        transition: none;
+      }
+
+      .life-photo {
         transition: none;
       }
     }
@@ -548,6 +648,27 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           <span class="chip">Interference Nulling</span>
           <span class="chip">Anti-Jamming</span>
           <span class="chip">System-Level Simulation</span>
+        </div>
+      </section>
+
+      <section class="panel reveal delay-5">
+        <h2 class="section-title"><span class="section-dot"></span>Beyond Research</h2>
+        <p class="life-subtitle">Life Outside The Lab</p>
+        <div class="life-panel">
+          <figure class="life-photo-wrap">
+            <img class="life-photo" src="/Interests/ski1.jpg" alt="Skiing in winter mountains" loading="lazy" />
+          </figure>
+          <div class="life-copy">
+            <p>
+              Outside the lab, I enjoy alpine skiing. It is a way to stay energized, reset focus, and
+              keep a balance between deep research work and outdoor challenges.
+            </p>
+            <div class="life-badges">
+              <span class="life-badge">Skiing</span>
+              <span class="life-badge">Outdoor</span>
+              <span class="life-badge">Adventure</span>
+            </div>
+          </div>
         </div>
       </section>
     </div>

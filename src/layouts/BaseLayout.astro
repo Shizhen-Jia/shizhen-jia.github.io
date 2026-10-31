@@ -2,11 +2,12 @@
 const {
   title = "Shizhen Jia | PhD Student @ NYU WIRELESS",
   description = "Shizhen Jia is a PhD student at NYU WIRELESS working on NTN, LEO satellite systems, anti-jamming, and interference nulling.",
-  active = "home", // "home" | "projects" | "publications" | "cv"
+  active = "home", // "home" | "news" | "projects" | "publications" | "cv"
 } = Astro.props;
 
 const nav = [
   { key: "home", label: "Home", href: "/" },
+  { key: "news", label: "News", href: "/news" },
   { key: "projects", label: "Projects", href: "/projects" },
   { key: "publications", label: "Publications", href: "/publications" },
   { key: "cv", label: "CV", href: "/cv" },
@@ -160,7 +161,11 @@ const sitemapUrl = new URL("/sitemap.xml", site).toString();
 
         <div class="navlinks">
           {nav.map((item) => (
-            <a href={item.href} class={item.key === active ? "active" : ""}>
+            <a
+              href={item.href}
+              class={item.key === active ? "active" : ""}
+              aria-current={item.key === active ? "page" : undefined}
+            >
               {item.label}
             </a>
           ))}

@@ -1,0 +1,121 @@
+---
+import ResearchFigure from "./ResearchFigure.astro";
+import type { Project } from "../data/projects";
+interface Props { project: Project; }
+const { project: p } = Astro.props;
+const assets = "/projects/anti-jamming";
+---
+
+<section class="detail-section">
+  <p class="eyebrow">One research direction, two connected studies</p>
+  <h2>Spatial cooperation first. Distributed synchronization next.</h2>
+  <p>A ground transmitter and a nearby jammer can look almost indistinguishable to one satellite. Receiving through several satellites creates spatial diversity, but cooperation also introduces different propagation delays and Doppler shifts. These two studies address the beamforming opportunity and the interference-alignment problem in sequence.</p>
+  <div class="detail-grid" style="margin-top:26px">
+    <div class="panel"><p class="eyebrow">01 / Game-theoretic beamforming</p><h3>What can cooperating satellites achieve?</h3><p>Model the desired transmitter and jammer as players in a transmit-covariance game. Evaluate achievable-rate gains from one, three, and five cooperating satellites under an equalized per-satellite channel model.</p><a class="text-link" href="#spatial-cooperation">Explore the first study ↓</a></div>
+    <div class="panel"><p class="eyebrow">02 / Delay–Doppler synchronization · Ongoing</p><h3>How accurately must the interference be aligned?</h3><p>Estimate relative delay and Doppler from a common interferer, then learn a two-branch nulling weight. Connect acquisition failures, local mismatch, and finite training to the remaining interference.</p><a class="text-link" href="#distributed-synchronization">Explore the follow-up study ↓</a></div>
+  </div>
+</section>
+
+<section id="spatial-cooperation" class="detail-section detail-grid wide-copy">
+  <div>
+    <p class="eyebrow">Stage 01 / Distributed spatial diversity</p>
+    <h2>Turn multiple LEO receivers into a distributed array</h2>
+    <p>Interconnected satellites observe different spatial channels from the desired transmitter and the jammer. The ground transmitter can distribute its energy across these paths, creating more options than steering toward a single satellite.</p>
+    <ul>
+      <li><strong>Game formulation:</strong> maximize the desired uplink’s log-det achievable rate against a jammer that minimizes it, subject to transmit-power constraints.</li>
+      <li><strong>Solver:</strong> alternate a water-filling best response for the desired transmitter with projected-gradient updates of the jammer covariance.</li>
+      <li><strong>Evaluation:</strong> combine Starlink orbital geometries, Sionna ray tracing, and directional antenna models for fixed dish and adaptive array jammers.</li>
+    </ul>
+    <p class="note">This study uses an equalized, memoryless channel model. Distributed timing and carrier alignment are assumptions to be addressed, motivating the second study.</p>
+  </div>
+  <ResearchFigure src={assets + "/cooperative-uplink.webp"} alt="A desired ground transmitter and a jammer send signals to three LEO satellites connected by inter-satellite links." width="989" height="1090" title="Cooperative uplink reception" caption="First-study system model. The desired and interfering transmit covariances determine how energy reaches the distributed satellite receivers." />
+</section>
+
+<section class="detail-section">
+  <p class="eyebrow">Why a single satellite can struggle</p>
+  <h2>Nearby jammers leave little angular separation</h2>
+  <p>In the single-satellite example, four dish jammers lie on a ring around the desired ground user, beneath a nadir satellite at 550 km. As the ring shrinks, spatial nulling also suppresses the desired signal. The link becomes effectively unusable below roughly 5 km separation in this particular configuration.</p>
+  <div class="figures two">
+    <ResearchFigure src={assets + "/single-satellite-maps.webp"} alt="Ground radio maps for a single satellite with four jammers at increasing distances from the desired user." width="1800" height="1172" title="Nulls and the desired beam overlap" caption="Ground patterns from the first paper. The maps illustrate how jammer distance changes the spatial separation available to the satellite array." />
+    <ResearchFigure src={assets + "/capacity-distance.webp"} alt="Single-satellite capacity versus jammer distance, showing a sharp loss for nearby jammers." width="1800" height="1207" title="Capacity falls as the jammers approach" caption="The corresponding four-jammer example. The distance threshold is specific to the simulated geometry, arrays, and link budget." />
+  </div>
+</section>
+
+<section class="detail-section">
+  <p class="eyebrow">Stage 01 / Achievable-rate evaluation</p>
+  <h2>More satellites create more spatial options</h2>
+  <div class="detail-grid wide-copy">
+    <div>
+      <p>The multi-satellite study compares the nearest one, three, and five candidate satellites over <strong>400 Starlink time frames</strong>. The simulations use a 10 GHz carrier, 100 MHz bandwidth, and 6 × 6 arrays at the desired transmitter and satellite receivers.</p>
+      <h3 style="margin-top:24px">A fixed directional jammer</h3>
+      <p>With a dish jammer 1 km north of the desired transmitter, three cooperating satellites exceed <strong>7.5 bit/s/Hz in more than half the simulated cases</strong>. Spatial diversity lets the desired transmitter use paths less exposed to the jammer’s fixed pointing direction.</p>
+      <h3 style="margin-top:24px">An adaptive array jammer</h3>
+      <p>An intelligent jammer adapts its covariance to the transmitter’s strategy. Cooperation still helps, but the result depends strongly on geometry and separation: at 7 km, five satellites exceed <strong>1 bit/s/Hz in approximately 75% of cases</strong>.</p>
+    </div>
+    <ResearchFigure src={assets + "/dish-capacity.webp"} alt="Achievable-rate CDFs for one, three, and five satellites under a fixed directional dish jammer." width="1800" height="1146" title="Cooperation against a fixed dish jammer" caption="400 time frames with the jammer 1 km north of the desired transmitter. The plotted rate is the total distributed-link spectral efficiency under the study’s channel model." />
+  </div>
+  <div class="figures"><ResearchFigure src={assets + "/array-capacity.webp"} alt="Achievable-rate distributions under adaptive array jamming at one, three, five, and seven kilometre transmitter–jammer separations." width="2400" height="546" title="An adaptive jammer makes spatial diversity more valuable" caption="One, three, and five candidate satellites across four jammer distances. Each CDF uses 400 time frames; the achievable-rate gains belong to the first study’s equalized-channel model." /></div>
+</section>
+
+<section id="distributed-synchronization" class="detail-section detail-grid wide-copy">
+  <div>
+    <p class="eyebrow">Stage 02 / Ongoing work</p>
+    <h2>Align the common interferer before cancellation</h2>
+    <p>Different satellite path lengths and velocities produce relative delay and Doppler. Synchronizing the desired uplink does not generally align the interferer’s copies, so their offsets must be estimated before coherent cancellation.</p>
+    <p>The follow-up isolates a common interferer and thermal noise at two receiver branches. It studies how acquisition errors, imperfect local refinement, and finite-training weight estimation combine to determine residual interference-to-noise ratio (INR).</p>
+    <p class="note">The desired transmitter in the diagram provides context. This experiment evaluates interference suppression; desired-user synchronization, signal-preserving combining, and equalization remain future work.</p>
+  </div>
+  <ResearchFigure src={p.media[0].src} alt={p.media[0].alt} width="1050" height="654" title="Two branches, different delays and Doppler shifts" caption="The current manuscript’s system model. Red paths carry the common interferer, while the pale desired uplinks indicate the wider communication setting." />
+</section>
+
+<section class="detail-section detail-grid wide-copy">
+  <div>
+    <p class="eyebrow">Acquisition → alignment → nulling</p>
+    <h2>A coarse search with matched final refinement</h2>
+    <p>Compare dense FFT/zoom acquisition with a coarse FFT search that retains one peak and applies curvature-scaled gradient steps. Both methods then use the same bounded FIR-based refinement, local sample mask, and branch-noise normalization.</p>
+    <p>After alignment, sample covariance supplies the interference-nulling weight. Performance is measured on independent test blocks, separating training fit from the interference that remains on unseen samples.</p>
+  </div>
+  <ResearchFigure src={assets + "/acquisition-method.webp"} alt="Coarse FFT delay–Doppler search, strongest-peak selection, local refinement, alignment, noise normalization, and covariance nulling." width="1025" height="576" title="The low-cost acquisition path" caption="One retained coarse-grid peak and ten initial gradient steps, followed by the same final FIR refinement used by the dense-search reference. The search landscape is schematic." />
+</section>
+
+<section class="detail-section">
+  <p class="eyebrow">Stage 02 / Analysis and measured computation cost</p>
+  <h2>Connect synchronization accuracy to the residual interference</h2>
+  <p>The mean-INR approximation separates wrong-peak acquisition, local delay–Doppler errors, and finite-training weight learning. Under the Gaussian surrogate, correct acquisition, small errors, and efficient approximately unbiased refinement, the high-input-INR limit is <strong>2 / N<sub>v</sub></strong>, where N<sub>v</sub> is the valid training length.</p>
+  <p>Synchronization and weight learning contribute equally to this limiting value. Persistent alignment bias instead introduces a penalty that grows with input power. The fixed-geometry experiment uses 1,222 valid training samples, giving a predicted plateau of approximately −27.86 dB.</p>
+  <div class="metrics">{p.results?.map(result => <div class="metric"><span class="metric-value">{result.value}</span><span class="metric-label">{result.label}</span><p class="metric-detail">{result.detail}</p></div>)}</div>
+  <p class="note">{p.resultNote}</p>
+  <div class="figures"><ResearchFigure src={assets + "/acquisition-results.webp"} alt="Four panels comparing residual INR, wrong-acquisition probability, delay RMSE, and Doppler RMSE for dense and coarse acquisition." width="2148" height="1125" title="Search cost, acquisition reliability, and final nulling" caption="Fixed-geometry study with matched final FIR refinement and independent test blocks. Coarse search reaches 10% wrong acquisition about 0.7 dB later. Both methods approach the predicted high-INR plateau after reliable acquisition." /></div>
+  <div class="table-wrap">
+    <table>
+      <caption class="sr-only">Measured acquisition and refinement times</caption>
+      <thead><tr><th scope="col">Receiver</th><th scope="col">Initial acquisition</th><th scope="col">Median search / refinement</th></tr></thead>
+      <tbody><tr><th scope="row">Dense FFT / zoom</th><td>4× FFT padding · six zoom stages</td><td>99.0 ms</td></tr><tr><th scope="row">Coarse FFT / gradient</th><td>1× FFT · one peak · ten gradient steps</td><td>14.7 ms</td></tr></tbody>
+    </table>
+  </div>
+  <p class="note" style="margin-top:16px">One Intel Core Ultra 9 275HX CPU thread, 40 timed runs after two warmups, at 8.98 dB input INR. Timing includes final refinement and is not an end-to-end receiver speedup. The theoretical information scale is a model-dependent reference, not a strict finite-window bound for the QPSK experiment.</p>
+</section>
+
+<section class="detail-section">
+  <p class="eyebrow">Power imbalance &amp; changing constellation geometry</p>
+  <h2>Check beyond one balanced receiver pair</h2>
+  <div class="detail-grid">
+    <div><h3>Controlled branch-power imbalance</h3><p>Vary the weaker-to-stronger branch power ratio while preserving geometry, delays, Doppler, and noise. A weaker second branch makes acquisition harder, and low residual INR alone can be misleading when little interference energy reaches that branch.</p><p>The measured curves quantify acquisition and refinement effects separately, including cases where reliable acquisition still falls short of the efficient-refinement approximation.</p></div>
+    <div><h3>A separate 24-hour Starlink evaluation</h3><p>From 720 orbital snapshots at 120-second intervals, the pairing constraints retain 716. Both receivers achieve a <strong>−21.94 dB median per-snapshot mean residual INR</strong>; the known-synchronization reference gives −25.18 dB, exposing a remaining alignment penalty.</p><p>This experiment uses a scalar line-of-sight link budget and bandlimited thermal noise. Its record length and noise model differ from the fixed-geometry benchmark.</p></div>
+  </div>
+  <div class="figures two">
+    <ResearchFigure src={assets + "/power-imbalance.webp"} alt="Residual INR versus receiver branch power ratio at four fixed stronger-branch input INR values." width="1050" height="795" title="Unequal branches change the acquisition problem" caption="Controlled power-ratio sweep with matched refinement. Shading gives pointwise 95% trial-bootstrap intervals; dotted curves show the surrogate approximation." />
+    <ResearchFigure src={assets + "/starlink-snapshots.webp"} alt="Input-INR and mean residual-INR CDFs across 716 retained Starlink snapshots, comparing dense, coarse, and known-synchronization receivers." width="1050" height="570" title="Comparable nulling across moving satellite pairs" caption="Each snapshot is weighted equally. Residuals are means over training trials and independent test blocks, not pooled individual-trial errors; adjacent snapshots are temporally correlated." />
+  </div>
+  <div class="panel" style="margin-top:26px"><h3>The next step</h3><p>Combine interference alignment with desired-user timing/carrier synchronization, channel estimation, and signal-preserving reception. The second study’s residual-INR results establish progress on alignment, while a complete achievable-rate evaluation with these receiver functions remains open.</p></div>
+</section>
+
+<section class="detail-section">
+  <div class="section-heading"><div><p class="eyebrow">Papers &amp; poster</p><h2>Read both parts of the project</h2></div><a class="button" href={p.poster?.pdf} target="_blank" rel="noopener">Open poster PDF ↗</a></div>
+  <div class="detail-grid">
+    <div class="panel"><h3>Game-theoretic beamforming</h3><p>Distributed Uplink Anti-Jamming in LEO Mega-Constellations via Game-Theoretic Beamforming.</p><p class="note">IEEE ICC 2026 · Shizhen Jia, Mingjun Ying, Marco Mezzavilla, Theodore S. Rappaport, and Sundeep Rangan.</p><a class="text-link" href={assets + "/beamforming-paper.pdf"} target="_blank" rel="noopener">Read the first paper ↗</a></div>
+    <div class="panel"><h3>Delay–Doppler synchronization</h3><p>Delay–Doppler Synchronization for Distributed Uplink Interference Nulling in LEO Networks.</p><p class="note">Ongoing research manuscript · Stefan Daniel Tancovici, Shizhen Jia, Marco Mezzavilla, C. Nicolas Barati, and Sundeep Rangan.</p><a class="text-link" href={assets + "/synchronization-paper.pdf"} target="_blank" rel="noopener">Read the follow-up manuscript ↗</a></div>
+  </div>
+  <p style="margin-top:24px">The poster summarizes the first study’s motivation, distributed-array game, simulation setup, and results under dish and adaptive-array jamming.</p>
+  <a class="poster-image" href={p.poster?.pdf} target="_blank" rel="noopener" aria-label="Open the complete distributed satellite anti-jamming poster"><img src={p.poster?.preview} alt="Research poster on nullforming with distributed arrays and satellite anti-jamming, with spatial models, a min–max formulation, and simulation results." width="2200" height="1467" loading="lazy" decoding="async" /></a>
+</section>

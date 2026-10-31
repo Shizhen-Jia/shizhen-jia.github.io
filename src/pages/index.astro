@@ -33,6 +33,11 @@ const lifePhotos = [
       gap: 18px;
     }
 
+    .home-wrap,
+    .home-wrap * {
+      box-sizing: border-box;
+    }
+
     .home-wrap::before,
     .home-wrap::after {
       content: "";
@@ -45,7 +50,7 @@ const lifePhotos = [
     }
 
     .home-wrap::before {
-      width: 340px;
+      width: min(340px, 100%);
       height: 340px;
       right: 12%;
       top: -70px;
@@ -54,7 +59,7 @@ const lifePhotos = [
     }
 
     .home-wrap::after {
-      width: 420px;
+      width: min(420px, 100%);
       height: 420px;
       left: -110px;
       bottom: -170px;
@@ -64,9 +69,15 @@ const lifePhotos = [
 
     .home {
       display: grid;
-      grid-template-columns: minmax(250px, 320px) 1fr;
+      grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
       gap: 22px;
       align-items: start;
+    }
+
+    .sidebar {
+      display: grid;
+      gap: 16px;
+      min-width: 0;
     }
 
     .top-stage {
@@ -173,20 +184,6 @@ const lifePhotos = [
       line-height: 1.45;
     }
 
-    .focus-mini {
-      margin: 10px 0 0;
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(126, 216, 197, 0.22);
-      background: rgba(126, 216, 197, 0.08);
-      color: #b9dfd9;
-      font-size: 12px;
-      font-weight: 650;
-      letter-spacing: 0.01em;
-    }
-
     .social-row {
       margin-top: 14px;
       display: flex;
@@ -235,6 +232,7 @@ const lifePhotos = [
     .content {
       display: grid;
       gap: 16px;
+      min-width: 0;
     }
 
     .panel {
@@ -333,17 +331,90 @@ const lifePhotos = [
       box-shadow: 0 0 0 4px rgba(138, 180, 248, 0.08);
     }
 
+    .experience-list {
+      display: grid;
+      margin-top: 20px;
+    }
+
+    .experience-item {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    .experience-item + .experience-item {
+      margin-top: 22px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+
+    .experience-mark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(187, 153, 255, 0.3);
+      background: linear-gradient(145deg, rgba(116, 56, 192, 0.6), rgba(116, 56, 192, 0.16));
+      color: #f0e5ff;
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+
+    .experience-mark.cablelabs {
+      border-color: rgba(255, 117, 134, 0.28);
+      background: linear-gradient(145deg, rgba(214, 63, 92, 0.28), rgba(214, 63, 92, 0.06));
+      color: #ffa9b5;
+      font-size: 16px;
+    }
+
+    .experience-role {
+      margin: 0 0 4px;
+      color: var(--text);
+      font-size: 19px;
+      font-weight: 650;
+      line-height: 1.3;
+    }
+
+    .experience-company {
+      margin: 0 0 6px;
+      color: #cbe6e6;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .experience-meta {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .experience-description {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .education-panel .section-title,
+    .research-panel .section-title {
+      font-size: 23px;
+    }
+
     .edu-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
+      gap: 10px;
     }
 
     .edu-card {
       position: relative;
       overflow: hidden;
-      padding: 14px;
-      border-radius: 14px;
+      padding: 11px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background:
         linear-gradient(150deg, rgba(138, 180, 248, 0.08), rgba(255, 255, 255, 0.02) 60%),
@@ -373,15 +444,15 @@ const lifePhotos = [
       color: #f2f4ff;
       font-weight: 700;
       line-height: 1.3;
-      font-size: 20px;
+      font-size: 16px;
       font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
     }
 
     .edu-degree {
-      margin: 8px 0 6px;
+      margin: 6px 0;
       color: #cbe6e6;
       line-height: 1.42;
-      font-size: 14px;
+      font-size: 12px;
       font-style: italic;
     }
 
@@ -389,13 +460,13 @@ const lifePhotos = [
       margin: 0;
       color: var(--muted);
       line-height: 1.46;
-      font-size: 14px;
+      font-size: 12px;
     }
 
     .chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       margin-top: 8px;
     }
 
@@ -406,8 +477,8 @@ const lifePhotos = [
       border: 1px solid rgba(126, 216, 197, 0.22);
       background: rgba(126, 216, 197, 0.08);
       color: #b9dfd9;
-      padding: 8px 12px;
-      font-size: 13px;
+      padding: 7px 10px;
+      font-size: 12px;
       line-height: 1.3;
       font-weight: 600;
       opacity: 0;
@@ -646,7 +717,7 @@ const lifePhotos = [
       }
     }
 
-    @media (max-width: 980px) {
+    @media (max-width: 800px) {
       .home {
         grid-template-columns: 1fr;
       }
@@ -655,17 +726,13 @@ const lifePhotos = [
         padding: 16px;
       }
 
-      .profile-card {
-        max-width: 460px;
-        width: 100%;
+      .portrait {
+        display: block;
+        max-width: 360px;
       }
 
       .name {
         font-size: 36px;
-      }
-
-      .edu-grid {
-        grid-template-columns: 1fr;
       }
 
       .life-panel {
@@ -674,6 +741,41 @@ const lifePhotos = [
 
       .life-photo-wrap {
         min-height: 220px;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .top-stage {
+        padding: 12px;
+      }
+
+      .panel,
+      .profile-card {
+        padding: 16px;
+      }
+
+      .section-title {
+        font-size: 26px;
+      }
+
+      .experience-item {
+        grid-template-columns: 36px minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .experience-mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        font-size: 10px;
+      }
+
+      .experience-role {
+        font-size: 18px;
+      }
+
+      .edu-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -705,12 +807,12 @@ const lifePhotos = [
   <div class="home-wrap">
     <section class="top-stage">
       <div class="home">
-    <aside class="profile-card reveal delay-1">
+    <aside class="sidebar" aria-label="Profile and research interests">
+    <div class="profile-card reveal delay-1">
       <img class="portrait" src="/img/head.jpg" alt="Shizhen Jia portrait" />
       <h1 class="name">Shizhen Jia</h1>
       <p class="role">Ph.D. Candidate in Electrical Engineering</p>
       <p class="affil">NYU WIRELESS, New York University</p>
-      <p class="focus-mini">NTN · LEO · Anti-Jamming</p>
 
       <div class="social-row">
         <a
@@ -750,6 +852,18 @@ const lifePhotos = [
           </svg>
         </a>
       </div>
+    </div>
+
+      <section class="panel research-panel reveal delay-3" aria-labelledby="research-title">
+        <h2 class="section-title" id="research-title"><span class="section-dot" aria-hidden="true"></span>Research Interests</h2>
+        <div class="chips">
+          <span class="chip">Wireless Communications</span>
+          <span class="chip">LEO / NTN Systems</span>
+          <span class="chip">Interference Nulling</span>
+          <span class="chip">Anti-Jamming</span>
+          <span class="chip">System-Level Simulation</span>
+        </div>
+      </section>
     </aside>
 
     <div class="content">
@@ -766,8 +880,34 @@ const lifePhotos = [
         </div>
       </section>
 
-      <section class="panel reveal delay-3">
-        <h2 class="section-title"><span class="section-dot"></span>Education</h2>
+      <section class="panel experience-panel reveal delay-3" aria-labelledby="experience-title">
+        <h2 class="section-title" id="experience-title"><span class="section-dot" aria-hidden="true"></span>Experience</h2>
+        <div class="experience-list">
+          <article class="experience-item">
+            <div class="experience-mark" aria-hidden="true">NYU</div>
+            <div>
+              <h3 class="experience-role">Research Assistant</h3>
+              <p class="experience-company">NYU WIRELESS · Full-time</p>
+              <p class="experience-meta"><time datetime="2025-09">Sep. 2025</time> – Present</p>
+              <p class="experience-meta">New York, United States · On-site</p>
+              <p class="experience-description">Research Assistant with Prof. Sundeep Rangan at NYU WIRELESS.</p>
+            </div>
+          </article>
+
+          <article class="experience-item">
+            <div class="experience-mark cablelabs" aria-hidden="true">CL</div>
+            <div>
+              <h3 class="experience-role">NTN Study Intern</h3>
+              <p class="experience-company">CableLabs · Internship</p>
+              <p class="experience-meta"><time datetime="2026-05">May 2026</time> – <time datetime="2026-08">Aug. 2026</time> · 4 months</p>
+              <p class="experience-meta">Louisville, Colorado, United States · On-site</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel education-panel reveal delay-4" aria-labelledby="education-title">
+        <h2 class="section-title" id="education-title"><span class="section-dot" aria-hidden="true"></span>Education</h2>
         <div class="edu-grid">
           <article class="edu-card">
             <h3 class="edu-school">New York University</h3>
@@ -789,17 +929,6 @@ const lifePhotos = [
             <p class="edu-meta">Sep. 2018 - Jun. 2022</p>
             <p class="edu-meta">China</p>
           </article>
-        </div>
-      </section>
-
-      <section class="panel reveal delay-4">
-        <h2 class="section-title"><span class="section-dot"></span>Research Interests</h2>
-        <div class="chips">
-          <span class="chip">Wireless Communications</span>
-          <span class="chip">LEO / NTN Systems</span>
-          <span class="chip">Interference Nulling</span>
-          <span class="chip">Anti-Jamming</span>
-          <span class="chip">System-Level Simulation</span>
         </div>
       </section>
 

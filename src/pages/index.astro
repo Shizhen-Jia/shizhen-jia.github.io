@@ -4,7 +4,8 @@ import ProjectGrid from "../components/ProjectGrid.astro";
 import NewsContent from "../components/NewsContent.astro";
 import PublicationPreview from "../components/PublicationPreview.astro";
 import CVContent from "../components/CVContent.astro";
-const lifePhotos = ["/img/life/ski1.webp", "/img/life/ski2.webp", "/img/life/ski3.webp"];
+import OutdoorAlbum from "../components/OutdoorAlbum.astro";
+import { outdoorAlbums } from "../data/outdoors";
 ---
 <BaseLayout title="Shizhen Jia | Wireless Systems & Satellite Networks" active="home">
   <div class="container">
@@ -66,35 +67,23 @@ const lifePhotos = ["/img/life/ski1.webp", "/img/life/ski2.webp", "/img/life/ski
       <div class="section-heading"><div><p class="eyebrow">01 / Updates &amp; community</p><h2 id="news-title">News</h2></div><p class="section-intro">Research updates and contributions to the wireless communications community.</p></div>
       <NewsContent />
     </section>
-    <section class="life-section" aria-labelledby="life-title">
-      <div class="life-photo-wrap"><div data-life-carousel>{lifePhotos.map((photo,i) => <img src={photo} alt={"Shizhen Jia skiing and enjoying the outdoors, photo " + (i+1)} loading="lazy" decoding="async" data-life-slide hidden={i!==0} />)}</div><div class="life-controls"><button type="button" data-life-prev aria-label="Previous outdoor photo">←</button><span data-life-count aria-live="polite">1 / 3</span><button type="button" data-life-next aria-label="Next outdoor photo">→</button></div></div>
-      <div class="life-copy"><p class="eyebrow">Some Cool Stuff</p><h2 id="life-title">A little time outdoors.</h2><div class="tags"><span class="tag">Skiing</span><span class="tag">Outdoors</span><span class="tag">Adventure</span></div></div>
+    <section id="some-cool-stuff" class="page-section" aria-labelledby="life-title">
+      <div class="section-heading"><div><p class="eyebrow">02 / A little time outdoors</p><h2 id="life-title">Some Cool Stuff</h2></div></div>
+      <div class="outdoor-grid">{outdoorAlbums.map(album => <OutdoorAlbum {...album} />)}</div>
     </section>
     <section id="projects" class="page-section" aria-labelledby="projects-title">
-      <div class="section-heading"><div><p class="eyebrow">02 / Research in focus</p><h2 id="projects-title">Projects</h2></div><p class="section-intro">Explore the questions, methods, and results behind my work. Each project opens into its own research story.</p></div>
+      <div class="section-heading"><div><p class="eyebrow">03 / Research in focus</p><h2 id="projects-title">Projects</h2></div><p class="section-intro">Explore the questions, methods, and results behind my work. Each project opens into its own research story.</p></div>
       <ProjectGrid />
     </section>
     <section id="publications" class="page-section" aria-labelledby="publications-title">
-      <div class="section-heading"><div><p class="eyebrow">03 / Papers &amp; preprints</p><h2 id="publications-title">Publications</h2></div><a class="text-link" href="https://scholar.google.com/citations?user=CzlkP7PJ-SsC&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></div>
+      <div class="section-heading"><div><p class="eyebrow">04 / Papers &amp; preprints</p><h2 id="publications-title">Publications</h2></div><a class="text-link" href="https://scholar.google.com/citations?user=CzlkP7PJ-SsC&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></div>
       <PublicationPreview />
     </section>
     <section id="cv" class="page-section" aria-labelledby="cv-title">
-      <div class="section-heading"><div><p class="eyebrow">04 / The full picture</p><h2 id="cv-title">Curriculum Vitae</h2></div></div>
+      <div class="section-heading"><div><p class="eyebrow">05 / The full picture</p><h2 id="cv-title">Curriculum Vitae</h2></div></div>
       <CVContent />
     </section>
   </div>
-  <script>
-    const slides = Array.from(document.querySelectorAll<HTMLImageElement>("[data-life-slide]"));
-    const count = document.querySelector("[data-life-count]");
-    let current = 0;
-    const move = (direction: number) => {
-      current = (current + direction + slides.length) % slides.length;
-      slides.forEach((slide,i) => { slide.hidden = i !== current; });
-      if (count) count.textContent = (current + 1) + " / " + slides.length;
-    };
-    document.querySelector("[data-life-prev]")?.addEventListener("click", () => move(-1));
-    document.querySelector("[data-life-next]")?.addEventListener("click", () => move(1));
-  </script>
   <style>
     .home-hero { display: grid; grid-template-columns: 1.5fr .8fr; align-items: center; gap: 90px; padding: 72px 0 60px; }
     .hero-copy h1 { font-size: clamp(54px,6vw,86px); letter-spacing: -.055em; line-height: 1.05; margin-bottom: 25px; }
@@ -134,17 +123,7 @@ const lifePhotos = ["/img/life/ski1.webp", "/img/life/ski2.webp", "/img/life/ski
     .education-entry p { font-size: 12px; margin-top: 5px; }
     .education-entry .education-date, .education-entry .education-note { font-size: 11px; color: var(--soft); }
     .education-bottom { padding-top: 22px; border-top: 1px solid var(--border); }
-    .life-section { display: grid; grid-template-columns: 1fr 1fr; gap: 55px; align-items: center; padding: 20px 0 60px; }
-    .life-photo-wrap { position: relative; border-radius: 18px; overflow: hidden; }
-    [data-life-carousel] { aspect-ratio: 16/9; background: var(--surface); }
-    [data-life-slide] { width: 100%; height: 100%; aspect-ratio: 16/9; object-fit: cover; }
-    [data-life-slide][hidden] { display: none; }
-    .life-controls { position: absolute; bottom: 15px; right: 15px; display: flex; align-items: center; background: var(--header-bg); border: 1px solid var(--border-strong); border-radius: 8px; gap: 14px; padding: 4px; }
-    .life-controls button { background: transparent; color: var(--text); border: 0; width: 34px; height: 34px; border-radius: 5px; }
-    .life-controls button:hover { background: var(--hover); }
-    .life-controls span { font-size: 11px; }
-    .life-copy h2 { font-size: 36px; margin-bottom: 16px; }
-    .life-copy .tags { margin-top: 22px; }
+    .outdoor-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
     @media(max-width:1100px) { .home-hero { gap: 45px; } .background-grid { gap: 32px; } .education-panel { padding-left: 26px; } .entry-date { white-space: normal; max-width: 100px; text-align: right; } }
     @media(max-width:760px) {
       .home-hero { grid-template-columns: 1fr; gap: 40px; padding: 45px 0; }
@@ -153,7 +132,7 @@ const lifePhotos = ["/img/life/ski1.webp", "/img/life/ski2.webp", "/img/life/ski
       .hero-copy h1 { font-size: 62px; }
       .background-grid { grid-template-columns: 1fr; padding-block: 40px; gap: 45px; }
       .education-panel { border: 0; padding: 0; }
-      .life-section { grid-template-columns: 1fr; gap: 24px; }
+      .outdoor-grid { grid-template-columns: 1fr; }
       .entry-top { grid-template-columns: 42px 1fr; }
       .entry-date { grid-column: 2; max-width: none; text-align: left; margin-top: -8px; }
       .entry-description, .entry-location, .experience-links { margin-left: 0; }

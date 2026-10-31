@@ -13,7 +13,7 @@ const lifePhotos = ["/img/life/ski1.webp", "/img/life/ski2.webp", "/img/life/ski
         <div class="hero-copy">
           <p class="eyebrow">Wireless communications · NYU WIRELESS</p>
           <h1 id="home-title">Shizhen Jia<span class="name-period">.</span></h1>
-          <p class="hero-statement">Wireless systems,<br />from earth to orbit.</p>
+          <p class="hero-statement">Wireless systems, <br />from earth to orbit.</p>
           <p class="hero-description">I am a Ph.D. candidate in Electrical Engineering at <strong>New York University</strong>, advised by <a href="https://sdrangan.github.io/" target="_blank" rel="noopener">Prof. Sundeep Rangan</a>. My research explores how satellite and terrestrial networks can share spectrum and communicate reliably.</p>
           <p class="hero-description">I work on LEO satellite systems, interference nulling, anti-jamming, and wireless signal processing—from modeling and optimization to simulation and measurement.</p>
           <div class="actions hero-actions"><a class="button primary" href="#projects">Explore research ↓</a><a class="button" href="mailto:sj4025@nyu.edu">Get in touch ↗</a></div>
@@ -91,23 +91,23 @@ const lifePhotos = ["/img/life/ski1.webp", "/img/life/ski2.webp", "/img/life/ski
     .home-hero { display: grid; grid-template-columns: 1.5fr .8fr; align-items: center; gap: 90px; padding: 72px 0 60px; }
     .hero-copy h1 { font-size: clamp(54px,6vw,86px); letter-spacing: -.055em; line-height: 1.05; margin-bottom: 25px; }
     .name-period { color: var(--accent); }
-    .hero-statement { font-family: var(--serif); font-size: clamp(27px,3vw,39px); line-height: 1.25; letter-spacing: -.025em; color: #d5e4e5; margin-bottom: 27px; }
+    .hero-statement { font-family: var(--serif); font-size: clamp(27px,3vw,39px); line-height: 1.25; letter-spacing: -.025em; color: var(--hero-text); margin-bottom: 27px; }
     .hero-description { max-width: 680px; font-size: 15px; line-height: 1.9; }
     .hero-description + .hero-description { margin-top: 14px; }
     .hero-actions { margin-top: 30px; }
     .social-links { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 24px; font-size: 12px; }
     .social-links a { color: var(--soft); } .social-links a:hover { color: var(--accent); }
-    .portrait-panel { width: min(100%,350px); justify-self: center; position: relative; padding: 14px; border: 1px solid #416466; border-radius: 24px; background: linear-gradient(145deg,#22404766,#121b25); }
-    .portrait-panel::before { content: ""; position: absolute; inset: -15px 14px 24px -15px; border: 1px solid #8bd4c91c; border-radius: 28px; z-index: -1; }
-    .portrait-frame { overflow: hidden; border-radius: 15px; background: #dbe4e4; }
+    .portrait-panel { width: min(100%,350px); justify-self: center; position: relative; padding: 14px; border: 1px solid var(--border-strong); border-radius: 24px; background: linear-gradient(145deg,var(--surface-raised),var(--surface-soft)); }
+    .portrait-panel::before { content: ""; position: absolute; inset: -15px 14px 24px -15px; border: 1px solid var(--border); border-radius: 28px; z-index: -1; }
+    .portrait-frame { overflow: hidden; border-radius: 15px; background: #dedbea; }
     .portrait-frame img { width: 100%; height: 330px; object-fit: cover; object-position: center 35%; }
     .portrait-caption { display: flex; align-items: center; gap: 12px; padding: 20px 8px 15px; font-size: 14px; font-weight: 600; line-height: 1.5; }
     .portrait-caption small { color: var(--soft); font-size: 12px; font-weight: 400; }
-    .status-dot { width: 8px; height: 8px; flex: 0 0 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 4px #8bd4c91a; }
-    .nyu-wordmark { display: inline-block; margin: 0 8px 7px 28px; width: 170px; padding: 0; }
+    .status-dot { width: 8px; height: 8px; flex: 0 0 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 4px var(--hover); }
+    .nyu-wordmark { display: inline-block; margin: 0 8px 7px 28px; width: 184px; padding: 7px; border-radius: 7px; background: #181b2c; }
     .research-strip { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; padding: 22px 0; border-block: 1px solid var(--border); }
     .research-strip > span:first-child { font-size: 10px; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); margin-right: 18px; }
-    .research-strip p { font-family: var(--serif); color: #c2d2d9; font-size: 20px; }
+    .research-strip p { font-family: var(--serif); color: var(--hero-text); font-size: 20px; }
     .strip-dot { color: var(--soft); }
     .background-grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: 64px; padding-block: 60px 70px; }
     .background-title { font-size: 33px; margin-bottom: 26px; }
@@ -135,9 +135,9 @@ const lifePhotos = ["/img/life/ski1.webp", "/img/life/ski2.webp", "/img/life/ski
     [data-life-carousel] { aspect-ratio: 16/9; background: var(--surface); }
     [data-life-slide] { width: 100%; height: 100%; aspect-ratio: 16/9; object-fit: cover; }
     [data-life-slide][hidden] { display: none; }
-    .life-controls { position: absolute; bottom: 15px; right: 15px; display: flex; align-items: center; background: #0c1218d9; border: 1px solid #ffffff40; border-radius: 8px; gap: 14px; padding: 4px; }
+    .life-controls { position: absolute; bottom: 15px; right: 15px; display: flex; align-items: center; background: var(--header-bg); border: 1px solid var(--border-strong); border-radius: 8px; gap: 14px; padding: 4px; }
     .life-controls button { background: transparent; color: var(--text); border: 0; width: 34px; height: 34px; border-radius: 5px; }
-    .life-controls button:hover { background: #ffffff20; }
+    .life-controls button:hover { background: var(--hover); }
     .life-controls span { font-size: 11px; }
     .life-copy h2 { font-size: 36px; margin-bottom: 16px; }
     .life-copy .tags { margin-top: 22px; }

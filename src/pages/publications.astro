@@ -1,13 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PublicationList from "../components/PublicationList.astro";
-import { publications } from "../data/publications";
 ---
 <BaseLayout title="Publications | Shizhen Jia" active="publications">
   <div class="container">
     <a class="breadcrumb" href="/#publications">← Back to home</a>
     <div class="page-hero publication-hero"><p class="eyebrow">Shizhen Jia · NYU WIRELESS</p><h1>Publications</h1><p>Papers and preprints on satellite networks and wireless communications.</p></div>
-    <div class="library-toolbar"><p>{publications.length} papers &amp; preprints</p><a class="text-link" href="https://scholar.google.com/citations?user=CzlkP7PJ-SsC&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></div>
+    <div class="library-toolbar"><p>All publications</p><a class="text-link" href="https://scholar.google.com/citations?user=CzlkP7PJ-SsC&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a></div>
     <section aria-label="All publications" class="all-publications"><PublicationList /></section>
   </div>
 </BaseLayout>

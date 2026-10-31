@@ -1,0 +1,132 @@
+---
+import ResearchFigure from "./ResearchFigure.astro";
+import type { Project } from "../data/projects";
+interface Props { project: Project; }
+const { project: p } = Astro.props;
+const assets = "/projects/nulling";
+---
+
+<section class="detail-section">
+  <p class="eyebrow">The question</p>
+  <h2>How do you protect a receiver you do not know?</h2>
+  <p>Cellular downlinks can interfere with nearby ground terminals receiving satellite signals. Their identities, locations, and interference channels may be unknown to the cellular network. Sensing the terminals’ uplinks provides information a base station can use to steer its downlink energy away from them.</p>
+  <div class="figures"><ResearchFigure src={p.media[0].src} alt={p.media[0].alt} width="1314" height="460" title="Sense the uplink, protect the downlink" caption="System model from the latest poster. The sensing carrier and the protected downlink carrier may differ; the beam must be designed for the downlink array response." /></div>
+</section>
+
+<section class="detail-section">
+  <p class="eyebrow">Two connected research directions</p>
+  <h2>From known beacons to blind spatial sensing</h2>
+  <div class="detail-grid">
+    <div class="panel">
+      <h3>Coherent: estimate the reciprocal channel</h3>
+      <p>Potential NTN victims send known beacons. With a timing and phase reference, matched filtering supports detection and channel estimation under the reciprocal-channel model.</p>
+      <ul>
+        <li>Develop the broadcast → detect → estimate → null protocol.</li>
+        <li>Obtain a principal-eigenvector beam that trades desired-link gain against estimated interference power.</li>
+        <li>Derive residual-INR moments, finite-array limits, and low-/high-SNR behavior under channel-estimation error.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Noncoherent: learn directions from unknown uplinks</h3>
+      <p>Unknown waveforms reveal spatial structure through their covariance. Listening windows can be pooled without an inter-window phase reference.</p>
+      <ul>
+        <li>Derive a covariance-eigenvector generalized likelihood-ratio test (GLRT) for the single-victim benchmark.</li>
+        <li>Use spatially smoothed MUSIC with source enumeration and anonymous covariance-power estimation for multiple victims.</li>
+        <li>Reconstruct directions at the downlink carrier and apply nominal power correction without assuming instantaneous channel reciprocity.</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:24px">Both modes use a unit-norm beam: transmit power stays fixed while a penalty weight, λ, controls the balance between TN signal gain and NTN leakage. The noncoherent penalty combines directional powers; actual interference is evaluated using the physical downlink channels.</p>
+</section>
+
+<section class="detail-section">
+  <p class="eyebrow">Residual-interference analysis</p>
+  <h2>What limits the depth of a spatial null?</h2>
+  <p>Better sensing can improve a channel or direction estimate while a stronger interference path increases the cost of the remaining error. The analysis retains beam normalization and distinguishes a high-SNR limiting value from a bound valid at every SNR.</p>
+  <div class="figures two">
+    <ResearchFigure src={assets + "/coherent-plateau.webp"} alt="Coherent mean residual INR rises above its high-SNR limiting plateau before approaching it from above." width="926" height="450" title="Coherent estimation: a plateau is not a ceiling" caption="Single-victim hard null with fixed channels and white Gaussian estimation noise. For nonaligned desired/victim directions, the high-SNR mean tends to the downlink-symbol/uplink-training energy ratio; the all-SNR bound is N times that ratio." />
+    <ResearchFigure src={assets + "/noncoherent-plateau.webp"} alt="Noncoherent residual INR for 16 and 64 snapshots, showing a lower high-SNR plateau with more observations." width="658" height="608" title="Noncoherent sensing: observation length matters" caption="Common-signature benchmark with eight antennas, direction correlation 0.8, and equal raw INR and array sensing SNR. Increasing T from 16 to 64 lowers the high-SNR plateau by approximately 6 dB." />
+  </div>
+  <p class="note" style="margin-top:20px">The noncoherent study connects large-matrix direction overlap to leakage and separately derives fixed-array high-SNR and long-record limits. These single-victim results explain trends; they are not guarantees for the multi-user MUSIC network.</p>
+</section>
+
+<section class="detail-section">
+  <p class="eyebrow">Coherent network evaluation</p>
+  <h2>From channel-estimation error to aggregate network interference</h2>
+  <div class="detail-grid wide-copy">
+    <div>
+      <p>The coherent study uses a <strong>15 × 15 km</strong> site-specific scene centered on CableLabs in Colorado: seven base-station sites, 21 sectors, 8 × 8 arrays, a 10 GHz carrier, and 200 MHz bandwidth.</p>
+      <p>Ten paired deployments each contain 100 NTN terminals and 21 admitted TN users. Sionna ray tracing supplies multipath channels for detection, beam design, and evaluation, with up to three interactions. True-channel and noisy-estimated-channel nulling share the same users and channels.</p>
+      <p>With noisy estimated channels and λ = 10¹³, median NTN INR decreases from approximately <strong>−12.7 to −27.7 dB</strong>. The corresponding TN median SINR decreases from 20.2 to 17.0 dB, and its tenth percentile from 10.2 to −3.4 dB. Smaller penalty weights offer intermediate trade-offs.</p>
+    </div>
+    <ResearchFigure src={assets + "/coherent-deployment.webp"} alt="CableLabs-area deployment map with seven base-station sites, terrestrial users, satellite terminals, and sector boundaries." width="1673" height="1800" title="A site-specific Colorado deployment" caption="Seven sites / 21 sectors, with 100 NTN terminals per deployment: 50 rooftop and 50 outdoor. The aerial basemap provides context; propagation is computed from the 3D scene." />
+  </div>
+  <div class="figures two">
+    <ResearchFigure src={assets + "/coherent-inr.webp"} alt="NTN INR distributions for no nulling, true-channel nulling, and noisy-channel nulling at three penalty weights." width="1800" height="1055" title="NTN protection with imperfect channel estimates" caption="1,000 NTN samples over ten deployments. Aggregate interference includes all 21 sectors and links missed by detection; zero-coupling samples remain in the distribution." />
+    <ResearchFigure src={assets + "/coherent-sinr.webp"} alt="TN SINR distributions showing the service cost of stronger coherent nulling penalties." width="1800" height="1055" title="The corresponding TN service cost" caption="210 TN samples from the same deployments. SINR includes noise and interference from all other sectors, exposing the lower-tail cost of stronger protection." />
+  </div>
+</section>
+
+<section class="detail-section">
+  <p class="eyebrow">Noncoherent network evaluation</p>
+  <h2>Protect NTN receivers across uplink–downlink carrier gaps</h2>
+  <p>The noncoherent study uses a separate <strong>10 × 10 km</strong> rural scene near Boulder: four sites, 12 sectors, 50 NTN terminals and 12 TN users per deployment. Twenty paired deployments keep the channels and TN scheduling fixed across the tested penalty weights and carrier offsets.</p>
+  <div class="metrics">{p.results?.map(result => <div class="metric"><span class="metric-value">{result.value}</span><span class="metric-label">{result.label}</span><p class="metric-detail">{result.detail}</p></div>)}</div>
+  <p class="note">{p.resultNote}</p>
+  <div class="detail-grid wide-copy" style="margin-top:30px">
+    <div>
+      <h3>Rebuild the array response at the protected frequency</h3>
+      <p>The physical antenna spacing remains fixed as the carrier changes. Estimated uplink directions are mapped onto the downlink steering manifold, with a nominal frequency-dependent correction to the sensed powers.</p>
+      <p>Across the tested offsets from −20% to +20%, <strong>89.5–93.1%</strong> of linked NTN samples meet INR ≤ −3 dB at λ = 10¹³. Undetected terminals remain in the evaluation population.</p>
+      <h3 style="margin-top:24px">Stronger protection has a cost</h3>
+      <p>At equal 8 GHz carriers, increasing λ from 10¹¹ to 10¹³ raises the protected fraction from 85.2% to 91.9%, while the TN fifth-percentile SINR falls from 6.96 to −7.00 dB.</p>
+      <p class="note">These carrier-offset curves use analytic channel covariance, excluding finite-snapshot error. The simulations use configured eigenvalue thresholds for source enumeration; the formulation also develops an MDL-based rule. Nominal power weights do not impose a hard INR ceiling.</p>
+    </div>
+    <ResearchFigure src={assets + "/noncoherent-cdf.webp"} alt="Noncoherent NTN INR and TN SINR CDFs for two penalty weights and five uplink carrier offsets around the 8 GHz downlink." width="1370" height="1800" title="Protection and service, on the same deployments" caption="918 linked NTN samples and 240 TN samples, with each counted once in the no-nulling baseline. The two panels show satellite protection and terrestrial service together." />
+  </div>
+  <div class="table-wrap">
+    <table>
+      <caption class="sr-only">Noncoherent analytic-covariance results at equal 8 GHz uplink and downlink carriers</caption>
+      <thead><tr><th scope="col">At equal 8 GHz carriers</th><th scope="col">No nulling</th><th scope="col">λ = 10¹¹</th><th scope="col">λ = 10¹³</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">NTN fraction with INR ≤ −3 dB</th><td>65.3%</td><td>85.2%</td><td>91.9%</td></tr>
+        <tr><th scope="row">TN median SINR</th><td>22.82 dB</td><td>21.77 dB</td><td>19.76 dB</td></tr>
+        <tr><th scope="row">TN fifth-percentile SINR</th><td>9.37 dB</td><td>6.96 dB</td><td>−7.00 dB</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="detail-section">
+  <p class="eyebrow">Finite snapshots &amp; intermittent activity</p>
+  <h2>How much listening is enough?</h2>
+  <p>Finite observation records affect source detection and the final beam. At 8 GHz and λ = 10¹³, increasing the snapshot budget from 64 to 8,192 improves the NTN fraction with INR ≤ −3 dB from <strong>86.1% to 93.0%</strong>, while TN fifth-percentile SINR decreases from 4.97 to −1.96 dB. This experiment uses 20 deployments and five waveform/noise repetitions per deployment.</p>
+  <div class="figures"><ResearchFigure src={assets + "/snapshot-tradeoff.webp"} alt="Finite-snapshot sweep showing increasing NTN protection and decreasing TN fifth-percentile SINR as the sensing budget grows." width="1358" height="360" title="More observations change both sides of the trade-off" caption="Latest poster summary of the finite-snapshot experiment. The MUSIC source-count threshold is calibrated on separate noise-only data; the same linked NTN population is retained across budgets." /></div>
+  <div class="detail-grid" style="margin-top:30px">
+    <div class="panel">
+      <h3>Hearing a terminal is the first step</h3>
+      <p>With intermittent uplinks, a receiver may remain unheard in every window. The analysis separates this zero-hit event from direction-estimation error and the residual interference after nulling.</p>
+      <p>For 50 independently active terminals, each transmitting with probability 0.1 per window, 66 windows reduce the probability of missing at least one terminal below 5%. Activity coverage alone does not ensure a sufficiently deep null.</p>
+    </div>
+    <div class="panel">
+      <h3>Account for the time before the beam is ready</h3>
+      <p>Pool observations from contiguous or separated windows, and account separately for listening time, RF switching, service gaps, and processing delay.</p>
+      <p>The service model includes the pre-update beam and the final nulling beam. Final-beam INR results do not include the service-time cost; listening-induced silence is not counted as a nulling gain.</p>
+    </div>
+  </div>
+  <div class="figures two" style="margin-top:26px">
+    <ResearchFigure src={assets + "/listening-windows.webp"} alt="One contiguous listening window and two separated windows, with explicit switching intervals and terrestrial-service gaps." width="1316" height="394" title="A shared-RF listening timeline" caption="Only listening intervals contribute sensing snapshots. Both sensing modes can use either schedule; switching and service gaps add elapsed time." />
+    <ResearchFigure src={assets + "/activity-coverage.webp"} alt="Intermittent-activity coverage probability and the fraction of NTN terminals above minus 6 dB final-beam INR versus listening-window count." width="1800" height="1055" title="Activity coverage and final-beam protection" caption="The network panel uses 64 snapshots per window, 8 GHz carriers, and λ = 10¹³. Never-transmitted and undetected linked terminals remain in the population; shading shows deployment-bootstrap intervals." />
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="section-heading"><div><p class="eyebrow">Papers &amp; posters</p><h2>The complete studies</h2></div><a class="button" href={p.poster?.pdf} target="_blank" rel="noopener">Open latest poster ↗</a></div>
+  <div class="detail-grid">
+    <div class="panel"><h3>Coherent study</h3><p>Residual Interference Analysis of Nulling for Terrestrial–Satellite Downlink Coexistence: Channel Estimation Errors and SNR Asymptotics.</p><p class="note">Research manuscript · Shizhen Jia, Marco Mezzavilla, C. Nicolas Barati, and Sundeep Rangan.</p><a class="text-link" href={assets + "/coherent-paper.pdf"} target="_blank" rel="noopener">Read the full manuscript ↗</a></div>
+    <div class="panel"><h3>Noncoherent study</h3><p>Noncoherent Sensing and Interference Nulling for TN–NTN Coexistence in the Upper Mid-Band: Large-Matrix Analysis and Finite-Array Leakage Scaling.</p><p class="note">Research manuscript · Shizhen Jia, C. Nicolas Barati, Marco Mezzavilla, and Sundeep Rangan.</p><a class="text-link" href={assets + "/noncoherent-paper.pdf"} target="_blank" rel="noopener">Read the full manuscript ↗</a></div>
+  </div>
+  <p style="margin-top:26px">The earlier conference study introduced joint detection, channel estimation, and interference nulling for terrestrial–satellite downlink coexistence at IEEE GLOBECOM 2025.</p>
+  <div class="actions"><a class="button" href="https://ieeexplore.ieee.org/document/11432307/" target="_blank" rel="noopener">GLOBECOM 2025 paper ↗</a><a class="button" href="https://github.com/Shizhen-Jia/NTN-Nulling" target="_blank" rel="noopener">Earlier implementation ↗</a><a class="button" href={assets + "/previous-poster.pdf"} target="_blank" rel="noopener">Previous poster ↗</a></div>
+  <a class="poster-image" href={p.poster?.pdf} target="_blank" rel="noopener" aria-label="Open the complete Cellular–LEO Interference Coordination poster"><img src={p.poster?.preview} alt="Latest poster: Cellular–LEO Interference Coordination, Coherent Beacons and Blind Spatial Sensing. Includes system model, coherent and noncoherent analysis, site-specific simulations, and sensing-budget results." width="2400" height="1600" loading="lazy" decoding="async" /></a>
+</section>

@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ResearchFigure from "../../components/ResearchFigure.astro";
 import OTAProjectDetails from "../../components/OTAProjectDetails.astro";
+import NullingProjectDetails from "../../components/NullingProjectDetails.astro";
 import { projects } from "../../data/projects";
 export function getStaticPaths() {
   return projects.map(project => ({ params: { slug: project.slug }, props: { project } }));
@@ -115,15 +116,7 @@ const next = projects[(index + 1) % projects.length];
         </section>
       </>}
 
-      {isNulling && <>
-        <section class="detail-section"><p class="eyebrow">Protocol overview</p><h2>Detect, estimate, and suppress interference</h2><p>This work studies terrestrial–satellite spectrum sharing in the upper mid-band through joint victim detection, channel estimation, and interference nulling.</p>
-          <div class="detail-grid" style="margin-top:26px;align-items:center">
-            <div><ul><li>Four-stage coexistence protocol: uplink broadcast, victim detection, channel estimation, and downlink nulling.</li><li>Regularized null-steering beamforming balances desired-link gain with interference suppression.</li><li>Site-specific rural macrocell evaluation uses ray tracing to study overhead and INR/SNR trade-offs.</li></ul></div>
-            <ResearchFigure src="/projects/nulling/protocol.svg" alt="Conceptual diagram of the four-stage terrestrial–satellite interference nulling protocol." width="800" height="450" title="Coexistence protocol" caption="Conceptual illustration of the detection, estimation, and nulling workflow." />
-          </div>
-        </section>
-        <section class="detail-section"><h2>Paper &amp; implementation</h2><p>Joint Detection, Channel Estimation and Interference Nulling for Terrestrial-Satellite Downlink Co-Existence in the Upper Mid-Band · IEEE GLOBECOM 2025.</p><div class="actions" style="margin-top:22px"><a class="button primary" href="https://ieeexplore.ieee.org/document/11432307/" target="_blank" rel="noopener">Read paper ↗</a><a class="button" href={p.links[0].href} target="_blank" rel="noopener">View code ↗</a></div></section>
-      </>}
+      {isNulling && <NullingProjectDetails project={p} />}
 
       {isOta && <OTAProjectDetails project={p} />}
 

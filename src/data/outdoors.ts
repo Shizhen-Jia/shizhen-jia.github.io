@@ -19,9 +19,9 @@ export const outdoorAlbums: { id: string; title: string; photos: OutdoorPhoto[] 
     id: "14er",
     title: "14er",
     photos: [
+      { src: "/img/life/14er/mountain-02.webp", alt: "Warm light across a rocky mountain ridge", width: 1600, height: 1200 },
       { src: "/img/life/14er/mountain-07.webp", alt: "Panoramic view of rugged mountain peaks beneath a blue sky", width: 1600, height: 1067 },
       { src: "/img/life/14er/mountain-01.webp", alt: "A rocky mountain ridge beneath a clear blue sky", width: 1200, height: 1600 },
-      { src: "/img/life/14er/mountain-02.webp", alt: "Warm light across a rocky mountain ridge", width: 1600, height: 1200 },
       { src: "/img/life/14er/mountain-03.webp", alt: "A starry sky above a mountain campsite", width: 1067, height: 1600 },
       { src: "/img/life/14er/mountain-04.webp", alt: "Golden mountain slopes beneath wispy clouds", width: 1067, height: 1600 },
       { src: "/img/life/14er/mountain-05.webp", alt: "A sunlit ridgeline with layers of mountains in the distance", width: 1067, height: 1600 },

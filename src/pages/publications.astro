@@ -3,6 +3,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const publications = [
   {
+    title: "Noncoherent Detection and Interference Nulling for Terrestrial-Satellite Downlink Coexistence in the Upper Mid-Band",
+    authors: ["Shizhen Jia", "C. Nicolas Barati", "Marco Mezzavilla", "Sundeep Rangan"],
+    venue: "IEEE SPAWC 2026 (accepted)",
+    year: "2026",
+    paperUrl: "https://arxiv.org/abs/2607.21838",
+    codeUrl: "https://github.com/Shizhen-Jia/NTN-NULLING-NONCOH",
+    keywords: ["Noncoherent Detection", "Interference Nulling", "NTN", "Upper Mid-Band"],
+  },
+  {
     title: "Joint Detection, Channel Estimation and Interference Nulling for Terrestrial-Satellite Downlink Co-Existence in the Upper Mid-Band",
     authors: ["Shizhen Jia", "Mingjun Ying", "Marco Mezzavilla", "Doru Calin", "Theodore S. Rappaport", "Sundeep Rangan"],
     venue: "IEEE GLOBECOM 2025 (accepted)",
@@ -27,7 +36,7 @@ const paperLabel = (url) => (url.includes("arxiv.org") ? "Open arXiv" : "Open Pa
 
 <BaseLayout
   title="Publications | Shizhen Jia"
-  description="Publications and preprints by Shizhen Jia, including IEEE GLOBECOM and IEEE ICC accepted papers."
+  description="Publications and preprints by Shizhen Jia, including papers accepted at IEEE SPAWC, IEEE GLOBECOM, and IEEE ICC."
   active="publications"
 >
   <style>

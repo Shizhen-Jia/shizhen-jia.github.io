@@ -92,23 +92,15 @@ const paperLabel = (url) => {
       color: #f5f7ff;
     }
 
-    .pub-hero p {
-      margin: 10px 0 0;
-      max-width: 760px;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    .hero-tools {
-      margin-top: 14px;
+    .pub-heading {
       display: flex;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .scholar-btn {
       display: inline-flex;
+      flex: 0 0 auto;
       align-items: center;
       justify-content: center;
       width: 44px;
@@ -301,17 +293,25 @@ const paperLabel = (url) => {
         font-size: 18px;
       }
     }
+
+    @media (max-width: 540px) {
+      .pub-hero h1 {
+        font-size: clamp(24px, 7vw, 36px);
+      }
+
+      .scholar-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 24px;
+      }
+    }
   </style>
 
   <div class="pub-page">
     <section class="pub-hero">
       <p class="eyebrow">Research Output</p>
-      <h1>Publications</h1>
-      <p>
-        Peer-reviewed publications and preprints. Read the papers on IEEE Xplore or arXiv,
-        and explore the accompanying code.
-      </p>
-      <div class="hero-tools">
+      <div class="pub-heading">
+        <h1>Publications</h1>
         <a
           class="scholar-btn"
           href="https://scholar.google.com/citations?user=CzlkP7PJ-SsC&hl=en"

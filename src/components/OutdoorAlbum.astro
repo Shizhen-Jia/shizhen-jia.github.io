@@ -165,9 +165,9 @@ const trackId = `album-${id}-photos`;
   .album-expand { position: absolute; right: 14px; bottom: 14px; display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--border-strong); border-radius: 9px; background: var(--header-bg); color: var(--text); pointer-events: none; }
   .album-photo-button:hover .album-expand { color: var(--accent); }
   .album-photo { position: relative; width: 100%; height: 100%; object-fit: contain; user-select: none; }
-  .album-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; border-top: 1px solid var(--border); }
+  .album-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; border-top: 1px solid var(--border); }
   .album-footer h3 { font-size: 29px; letter-spacing: -.02em; }
-  .album-controls { display: flex; align-items: center; gap: 8px; }
+  .album-controls { display: flex; align-items: center; gap: 8px; margin-left: auto; }
   .album-controls button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 50%; background: var(--wash); color: var(--text); font-size: 18px; }
   .album-controls button:hover { background: var(--hover); border-color: var(--border-strong); }
   .album-controls button:disabled { opacity: .4; cursor: default; }
@@ -176,10 +176,16 @@ const trackId = `album-${id}-photos`;
   :global(.outdoor-lightbox) { --pswp-bg: var(--bg); --pswp-icon-color: var(--text); --pswp-icon-color-secondary: var(--surface); --pswp-icon-stroke-color: var(--bg); --pswp-placeholder-bg: var(--surface-soft); }
   :global(.outdoor-lightbox .pswp__top-bar) { align-items: center; background: linear-gradient(var(--bg), transparent); }
   :global(.outdoor-lightbox .pswp__album-title) { margin-left: 20px; font-family: var(--serif); color: var(--text); font-size: 24px; }
-  :global(.outdoor-lightbox .pswp__counter) { margin: 0 auto 0 16px; height: auto; line-height: 1; color: var(--muted); text-shadow: none; }
+  :global(.outdoor-lightbox .pswp__counter) { margin: 0 auto 0 16px; height: auto; line-height: 1; white-space: nowrap; flex-shrink: 0; color: var(--muted); text-shadow: none; }
   :global(.outdoor-lightbox .pswp__album-help) { position: absolute; bottom: max(14px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); width: max-content; max-width: calc(100% - 24px); padding: 7px 14px; border-radius: 8px; background: var(--header-bg); color: var(--muted); font-size: 12px; text-align: center; pointer-events: none; }
   :global(.outdoor-lightbox .touch-help) { display: none; }
   :global(.outdoor-lightbox:not(.pswp--zoomed-in) .pswp__img) { cursor: zoom-in; }
   @media (pointer: coarse) { :global(.outdoor-lightbox .mouse-help) { display: none; } :global(.outdoor-lightbox .touch-help) { display: inline; } }
-  @media(max-width: 760px) { .album-footer { padding: 16px 18px; gap: 10px; } .album-footer h3 { font-size: 26px; } .album-controls { gap: 5px; } }
+  @media(max-width: 760px) {
+    .album-footer { padding: 16px 18px; gap: 10px; }
+    .album-footer h3 { font-size: 26px; }
+    .album-controls { gap: 5px; }
+    :global(.outdoor-lightbox .pswp__album-title) { margin-left: 14px; font-size: 20px; }
+    :global(.outdoor-lightbox .pswp__counter) { margin-left: 10px; }
+  }
 </style>

@@ -1,7 +1,26 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const publications = [
+interface Publication {
+  title: string;
+  authors: string[];
+  venue?: string;
+  status?: string;
+  year: string;
+  paperUrl: string;
+  codeUrl?: string;
+  keywords: string[];
+}
+
+const publications: Publication[] = [
+  {
+    title: "Intra-Cell Spatial Reuse in LEO Downlinks: Beam-Leakage-Aware Satellite Scheduling",
+    authors: ["Shizhen Jia", "Hao Guo", "Ruoyu Sun", "Hans Geerdes", "Mark Poletti", "Songwei Dong", "Lauryn Smith", "Sundeep Rangan"],
+    status: "Manuscript",
+    year: "2026",
+    paperUrl: encodeURI("/papers/Intra-Cell Spatial Reuse in LEO Downlinks - Beam-Leakage-Aware Satellite Scheduling.pdf"),
+    keywords: ["LEO Satellites", "Spatial Reuse", "Satellite Scheduling", "Interference Management", "Branch-and-Bound"],
+  },
   {
     title: "Noncoherent Detection and Interference Nulling for Terrestrial-Satellite Downlink Coexistence in the Upper Mid-Band",
     authors: ["Shizhen Jia", "C. Nicolas Barati", "Marco Mezzavilla", "Sundeep Rangan"],
@@ -31,12 +50,6 @@ const publications = [
   },
 ];
 
-const paperLabel = (url) => {
-  const hostname = new URL(url).hostname;
-  if (hostname === "ieeexplore.ieee.org") return "Open IEEE Xplore";
-  if (hostname === "arxiv.org") return "Open arXiv";
-  return "Open Paper";
-};
 ---
 
 <BaseLayout
@@ -351,7 +364,8 @@ const paperLabel = (url) => {
             ))}
           </p>
 
-          <p class="venue"><span class="label">Venue:</span> {p.venue}</p>
+          {p.venue && <p class="venue"><span class="label">Venue:</span> {p.venue}</p>}
+          {p.status && <p class="venue"><span class="label">Status:</span> {p.status}</p>}
 
           <div class="keywords">
             {p.keywords.map((k) => (
@@ -361,7 +375,7 @@ const paperLabel = (url) => {
 
           <div class="pub-actions">
             <a class="paper-btn" href={p.paperUrl} target="_blank" rel="noopener">
-              {paperLabel(p.paperUrl)} ->
+              Paper Link -&gt;
             </a>
 
             {p.codeUrl && (

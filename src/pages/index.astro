@@ -338,7 +338,7 @@ const lifePhotos = [
 
     .experience-item {
       display: grid;
-      grid-template-columns: 44px minmax(0, 1fr);
+      grid-template-columns: 76px minmax(0, 1fr);
       gap: 14px;
     }
 
@@ -348,26 +348,31 @@ const lifePhotos = [
       border-top: 1px solid var(--border);
     }
 
-    .experience-mark {
+    .organization-logo {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      border: 1px solid rgba(187, 153, 255, 0.3);
-      background: linear-gradient(145deg, rgba(116, 56, 192, 0.6), rgba(116, 56, 192, 0.16));
-      color: #f0e5ff;
-      font-size: 12px;
-      font-weight: 750;
-      letter-spacing: 0.02em;
+      flex: 0 0 auto;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      background: #f8f7fa;
     }
 
-    .experience-mark.cablelabs {
-      border-color: rgba(255, 117, 134, 0.28);
-      background: linear-gradient(145deg, rgba(214, 63, 92, 0.28), rgba(214, 63, 92, 0.06));
-      color: #ffa9b5;
-      font-size: 16px;
+    .organization-logo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .experience-logo {
+      width: 76px;
+      height: 60px;
+      padding: 7px;
+    }
+
+    .experience-logo.cablelabs {
+      padding: 4px;
     }
 
     .experience-role {
@@ -439,7 +444,22 @@ const lifePhotos = [
       box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
     }
 
+    .edu-heading {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .education-logo {
+      width: 40px;
+      height: 44px;
+      padding: 4px;
+      border-radius: 7px;
+    }
+
     .edu-school {
+      flex: 1 1 80px;
       margin: 0;
       color: #f2f4ff;
       font-weight: 700;
@@ -759,15 +779,14 @@ const lifePhotos = [
       }
 
       .experience-item {
-        grid-template-columns: 36px minmax(0, 1fr);
+        grid-template-columns: 64px minmax(0, 1fr);
         gap: 10px;
       }
 
-      .experience-mark {
-        width: 36px;
-        height: 36px;
-        border-radius: 10px;
-        font-size: 10px;
+      .experience-logo {
+        width: 64px;
+        height: 54px;
+        padding: 6px;
       }
 
       .experience-role {
@@ -884,7 +903,9 @@ const lifePhotos = [
         <h2 class="section-title" id="experience-title"><span class="section-dot" aria-hidden="true"></span>Experience</h2>
         <div class="experience-list">
           <article class="experience-item">
-            <div class="experience-mark" aria-hidden="true">NYU</div>
+            <div class="organization-logo experience-logo">
+              <img src="/img/logos/nyu.svg" alt="New York University logo" width="60" height="84" />
+            </div>
             <div>
               <h3 class="experience-role">Research Assistant</h3>
               <p class="experience-company">NYU WIRELESS · Full-time</p>
@@ -895,7 +916,9 @@ const lifePhotos = [
           </article>
 
           <article class="experience-item">
-            <div class="experience-mark cablelabs" aria-hidden="true">CL</div>
+            <div class="organization-logo experience-logo cablelabs">
+              <img src="/img/logos/cablelabs.svg" alt="CableLabs logo" width="300" height="62" />
+            </div>
             <div>
               <h3 class="experience-role">NTN Study Intern</h3>
               <p class="experience-company">CableLabs · Internship</p>
@@ -910,21 +933,36 @@ const lifePhotos = [
         <h2 class="section-title" id="education-title"><span class="section-dot" aria-hidden="true"></span>Education</h2>
         <div class="edu-grid">
           <article class="edu-card">
-            <h3 class="edu-school">New York University</h3>
+            <div class="edu-heading">
+              <div class="organization-logo education-logo">
+                <img src="/img/logos/nyu.svg" alt="New York University logo" width="60" height="84" />
+              </div>
+              <h3 class="edu-school">New York University</h3>
+            </div>
             <p class="edu-degree">Ph.D. candidate in Electrical Engineering, Advisor: Sundeep Rangan</p>
             <p class="edu-meta">Sep. 2024 - Present</p>
             <p class="edu-meta">New York, USA</p>
           </article>
 
           <article class="edu-card">
-            <h3 class="edu-school">New York University</h3>
+            <div class="edu-heading">
+              <div class="organization-logo education-logo">
+                <img src="/img/logos/nyu.svg" alt="New York University logo" width="60" height="84" />
+              </div>
+              <h3 class="edu-school">New York University</h3>
+            </div>
             <p class="edu-degree">M.S. in Electrical Engineering</p>
             <p class="edu-meta">Sep. 2022 - Aug. 2024</p>
             <p class="edu-meta">New York, USA</p>
           </article>
 
           <article class="edu-card">
-            <h3 class="edu-school">Chongqing University</h3>
+            <div class="edu-heading">
+              <div class="organization-logo education-logo">
+                <img src="/img/logos/cqu.svg" alt="Chongqing University logo" width="100" height="100" />
+              </div>
+              <h3 class="edu-school">Chongqing University</h3>
+            </div>
             <p class="edu-degree">B.Eng. in Electrical Engineering</p>
             <p class="edu-meta">Sep. 2018 - Jun. 2022</p>
             <p class="edu-meta">China</p>

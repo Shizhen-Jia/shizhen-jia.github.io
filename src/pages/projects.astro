@@ -52,6 +52,22 @@ const projects: Project[] = [
     },
   },
   {
+    slug: "ntn-adjacent-channel-coexistence",
+    name: "NTNCoex: Adjacent-Channel Coexistence for Satellite and Terrestrial Networks",
+    affiliation: "CableLabs · NTN Study Internship · May–Aug. 2026",
+    desc: "Developed a MATLAB simulation framework to evaluate spectrum sharing between satellite networks and between satellite and terrestrial systems. The study combines LEO-to-LEO and LEO-to-GEO downlink interference with six NTN–TN coexistence scenarios covering downlink, uplink, and cross-link interference at 2 GHz.",
+    approach: "Integrated satellite geometry, seven-beam antenna models, urban/rural terrestrial deployments, 3GPP propagation models, and ITU-R P.618 atmospheric losses. Modeled transmitter leakage and receiver selectivity through adjacent-channel interference ratio (ACIR), then used geometry and Monte Carlo sweeps to compare baseline and interfered SINR, mean throughput, and fifth-percentile throughput. Evaluated ACIR requirements against a 5% throughput-loss criterion and compared representative scenarios with 3GPP study results.",
+    links: [],
+    tags: ["NTN–NTN", "NTN–TN", "Adjacent-Channel Interference", "3GPP TR 38.863", "Monte Carlo", "MATLAB"],
+    media: [],
+    results: [
+      { value: "LEO / GEO", label: "Satellite coexistence", detail: "LEO-to-LEO and LEO-to-GEO downlinks" },
+      { value: "6 scenarios", label: "Terrestrial–satellite coexistence", detail: "DL, UL, and cross-link interference paths" },
+      { value: "5% loss", label: "Evaluation criterion", detail: "Mean and fifth-percentile throughput" },
+    ],
+    resultNote: "ACIR requirements are evaluated for each satellite geometry, antenna configuration, deployment, and loading condition.",
+  },
+  {
     slug: "nulling-upper-mid-band",
     name: "Nulling for Terrestrial-Satellite Downlink Co-Existence in the Upper Mid-Band",
     desc: "Simulation and analysis of null-forming / interference suppression for LEO/NTN scenarios.",
@@ -80,7 +96,7 @@ const projects: Project[] = [
 
 <BaseLayout
   title="Projects | Shizhen Jia"
-  description="Research projects by Shizhen Jia on LEO spatial reuse, beam-leakage-aware satellite scheduling, NTN systems, anti-jamming, and interference nulling."
+  description="Research projects by Shizhen Jia on LEO spatial reuse, satellite scheduling, NTN–NTN and NTN–TN coexistence, anti-jamming, and interference nulling."
   active="projects"
 >
   <style>

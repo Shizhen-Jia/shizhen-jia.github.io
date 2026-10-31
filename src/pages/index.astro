@@ -433,6 +433,15 @@ const lifePhotos = [
       line-height: 1.6;
     }
 
+    .experience-highlights {
+      padding-left: 18px;
+      margin-left: 0;
+    }
+
+    .experience-highlights li {
+      margin: 6px 0;
+    }
+
     .education-panel .section-title,
     .research-panel .section-title {
       font-size: 23px;
@@ -799,7 +808,7 @@ const lifePhotos = [
       }
 
       .experience-item {
-        grid-template-columns: 64px minmax(0, 1fr);
+        grid-template-columns: 1fr;
         gap: 10px;
       }
 
@@ -958,6 +967,16 @@ const lifePhotos = [
               <p class="experience-company">CableLabs · Internship</p>
               <p class="experience-meta"><time datetime="2026-05">May 2026</time> – <time datetime="2026-08">Aug. 2026</time> · 4 months</p>
               <p class="experience-meta">Louisville, Colorado, United States · On-site</p>
+              <ul class="experience-description experience-highlights">
+                <li>Developed MATLAB simulation tools for LEO spatial reuse, NTN–NTN adjacent-channel interference, and six NTN–TN coexistence scenarios, integrating satellite geometry, antenna patterns, propagation, and link budgets.</li>
+                <li>Developed beam-leakage-aware satellite scheduling and evaluated capacity and interference trade-offs; quantified coexistence through mean and fifth-percentile throughput loss and ACIR sweeps.</li>
+                <li>Built Starlink measurement tools combining terminal gRPC telemetry, latency and throughput tests, route diagnostics, and Grafana dashboards with TLE-based serving-satellite estimates.</li>
+                <li>Tested RadioHound spectrum-sensing hardware and investigated Wi-Fi antenna-orientation methods and NTN operation in unlicensed spectrum.</li>
+              </ul>
+              <p class="experience-description">
+                <a href="/projects#leo-spatial-reuse">LEO spatial reuse</a> ·
+                <a href="/projects#ntn-adjacent-channel-coexistence">NTN coexistence</a>
+              </p>
             </div>
           </article>
         </div>

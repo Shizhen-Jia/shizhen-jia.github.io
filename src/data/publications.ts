@@ -11,6 +11,14 @@ export interface Publication {
 
 export const publications: Publication[] = [
   {
+    title: "Delay–Doppler Synchronization for Distributed Uplink Interference Nulling in LEO Networks",
+    authors: ["Stefan Daniel Tancovici", "Shizhen Jia", "Marco Mezzavilla", "C. Nicolas Barati", "Sundeep Rangan"],
+    status: "Manuscript",
+    year: "2026",
+    paperUrl: "/papers/delay-doppler-synchronization-distributed-uplink-interference-nulling.pdf",
+    keywords: ["LEO Satellites", "Delay–Doppler Synchronization", "Interference Nulling", "Residual INR"],
+  },
+  {
     title: "Intra-Cell Spatial Reuse in LEO Downlinks: Beam-Leakage-Aware Satellite Scheduling",
     authors: ["Shizhen Jia", "Hao Guo", "Ruoyu Sun", "Hans Geerdes", "Mark Poletti", "Songwei Dong", "Lauryn Smith", "Sundeep Rangan"],
     status: "Manuscript",

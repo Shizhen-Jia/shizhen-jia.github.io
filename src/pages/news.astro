@@ -20,14 +20,58 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       color: #f5f7ff;
     }
 
+    .news-list {
+      list-style: none;
+      margin: 24px 0 0;
+      padding: 0;
+    }
+
+    .news-item {
+      display: grid;
+      grid-template-columns: 100px minmax(0, 1fr);
+      gap: 16px;
+      margin: 0;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .news-date {
+      color: var(--link);
+      font-weight: 600;
+      line-height: 1.65;
+    }
+
+    .news-item p {
+      margin: 0;
+    }
+
+    .news-item strong {
+      color: var(--text);
+    }
+
     @media (max-width: 640px) {
       h1 {
         font-size: 34px;
+      }
+
+      .news-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
       }
     }
   </style>
 
   <section class="news" aria-labelledby="news-title">
     <h1 id="news-title">News</h1>
+    <ul class="news-list" role="list">
+      <li class="news-item">
+        <time class="news-date" datetime="2025-11">Nov. 2025</time>
+        <p>
+          I will serve as a <strong>Session Chair</strong> for
+          <strong>“Channel Modeling &amp; Estimation” (SAC-SSC-03)</strong> at
+          <strong>IEEE GLOBECOM 2025</strong>.
+        </p>
+      </li>
+    </ul>
   </section>
 </BaseLayout>

@@ -12,31 +12,36 @@ const publications = [
     keywords: ["Noncoherent Detection", "Interference Nulling", "NTN", "Upper Mid-Band"],
   },
   {
-    title: "Joint Detection, Channel Estimation and Interference Nulling for Terrestrial-Satellite Downlink Co-Existence in the Upper Mid-Band",
-    authors: ["Shizhen Jia", "Mingjun Ying", "Marco Mezzavilla", "Doru Calin", "Theodore S. Rappaport", "Sundeep Rangan"],
-    venue: "IEEE GLOBECOM 2025",
-    year: "2025",
-    paperUrl: "https://arxiv.org/abs/2510.08824",
-    codeUrl: "https://github.com/SJ00425/NTN-Nulling",
-    keywords: ["Interference Nulling", "Detection", "Channel Estimation", "NTN", "FR3", "Upper Mid-Band"],
-  },
-  {
     title: "Distributed Uplink Anti-Jamming in LEO Mega-Constellations via Game-Theoretic Beamforming",
     authors: ["Shizhen Jia", "Mingjun Ying", "Marco Mezzavilla", "Theodore S. Rappaport", "Sundeep Rangan"],
     venue: "IEEE ICC 2026",
     year: "2026",
-    paperUrl: "https://arxiv.org/abs/2601.15557",
+    paperUrl: "https://ieeexplore.ieee.org/document/11586786/",
     codeUrl: "https://github.com/SJ00425/NTN-Anti-Jamming",
     keywords: ["LEO Satellites", "Anti-Jamming", "NTN", "Game Theory"],
   },
+  {
+    title: "Joint Detection, Channel Estimation and Interference Nulling for Terrestrial-Satellite Downlink Co-Existence in the Upper Mid-Band",
+    authors: ["Shizhen Jia", "Mingjun Ying", "Marco Mezzavilla", "Doru Calin", "Theodore S. Rappaport", "Sundeep Rangan"],
+    venue: "IEEE GLOBECOM 2025",
+    year: "2025",
+    paperUrl: "https://ieeexplore.ieee.org/document/11432307/",
+    codeUrl: "https://github.com/SJ00425/NTN-Nulling",
+    keywords: ["Interference Nulling", "Detection", "Channel Estimation", "NTN", "FR3", "Upper Mid-Band"],
+  },
 ];
 
-const paperLabel = (url) => (url.includes("arxiv.org") ? "Open arXiv" : "Open Paper");
+const paperLabel = (url) => {
+  const hostname = new URL(url).hostname;
+  if (hostname === "ieeexplore.ieee.org") return "Open IEEE Xplore";
+  if (hostname === "arxiv.org") return "Open arXiv";
+  return "Open Paper";
+};
 ---
 
 <BaseLayout
   title="Publications | Shizhen Jia"
-  description="Publications and preprints by Shizhen Jia, including papers at IEEE SPAWC, IEEE GLOBECOM, and IEEE ICC."
+  description="Publications and preprints by Shizhen Jia, including papers at IEEE SPAWC, IEEE ICC, and IEEE GLOBECOM."
   active="publications"
 >
   <style>
@@ -302,8 +307,8 @@ const paperLabel = (url) => (url.includes("arxiv.org") ? "Open arXiv" : "Open Pa
       <p class="eyebrow">Research Output</p>
       <h1>Publications</h1>
       <p>
-        Peer-reviewed publications and preprints. Click the paper title to open the latest paper link
-        (arXiv for now, IEEE link after publication).
+        Peer-reviewed publications and preprints. Read the papers on IEEE Xplore or arXiv,
+        and explore the accompanying code.
       </p>
       <div class="hero-tools">
         <a

@@ -50,9 +50,9 @@ export const projects: Project[] = [
   },
   {
     slug: "ntn-adjacent-channel-coexistence",
-    name: "NTNCoex: Adjacent-Channel Coexistence for Satellite and Terrestrial Networks",
+    name: "NTNCoex: NTN–NTN & NTN–TN Adjacent-Channel Coexistence",
     affiliation: "CableLabs · NTN Study Internship · May–Aug. 2026",
-    desc: "Reproduced the NTN–TN coexistence results in 3GPP TR 38.863 and extended the simulation framework to multi-satellite systems with aggregate interference. The study combines multi-satellite LEO-to-LEO and LEO-to-GEO downlink interference with six NTN–TN coexistence scenarios covering downlink, uplink, and cross-link interference at 2 GHz.",
+    desc: "System-level adjacent-channel coexistence evaluation at 2 GHz, covering both NTN–NTN (LEO-to-LEO and LEO-to-GEO downlinks) and six NTN–TN downlink, uplink, and cross-link scenarios. Reproduced the NTN–TN results in 3GPP TR 38.863 and extended the framework to multi-satellite systems, quantifying aggregate interference, throughput loss, and required adjacent-channel isolation.",
     approach: "Integrated satellite geometry, seven-beam antenna models, urban/rural terrestrial deployments, 3GPP propagation models, and ITU-R P.618 atmospheric losses. Modeled transmitter leakage and receiver selectivity through adjacent-channel interference ratio (ACIR), then used geometry and Monte Carlo sweeps to quantify interference from multiple satellites and its impact on SINR, mean throughput, and fifth-percentile throughput. Evaluated ACIR requirements against a 5% throughput-loss criterion.",
     links: [],
     tags: ["NTN–NTN", "NTN–TN", "Adjacent-Channel Interference", "3GPP TR 38.863", "Monte Carlo", "MATLAB", "Python"],

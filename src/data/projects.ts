@@ -82,10 +82,32 @@ export const projects: Project[] = [
   },
   {
     slug: "ota-phase-measurements-calibration",
-    name: "OTA phase measurements and array calibration",
-    desc: "From link-level methods to system-level evaluation with realistic geometry and overhead modeling.",
-    links: [],
-    tags: ["Phase Measurement", "Multipath", "FR3 Multi-band"],
-    media: [],
+    name: "Over-the-Air Phase Measurements and Calibration in the Upper Mid-Band: Multipath Statistics and Spatial Averaging",
+    affiliation: "NYU WIRELESS · IMDEA Networks · Pi-Radio",
+    desc: "Characterizing how unresolved multipath perturbs narrowband phase measurements, and using spatial averaging for relative over-the-air calibration. The work combines an indoor upper mid-band measurement campaign, phase-error statistics, and sampling design under a fixed observation budget.",
+    approach: "Measure paired narrowband and wideband responses from the same records, derive a dominant-path phase-error model, and estimate relative receive-channel phase by circular averaging of normalized channel ratios. Compare pooled random sampling with approximately equally spaced positions to separate spatial coverage from observation count.",
+    links: [
+      { label: "Read paper (PDF)", href: "/projects/ota-phase-measurements-calibration/paper.pdf" },
+      { label: "View poster (PDF)", href: "/projects/ota-phase-measurements-calibration/poster.pdf" },
+    ],
+    tags: ["OTA Calibration", "Phase Statistics", "Spatial Averaging", "Upper Mid-Band", "RFSoC / Pi-Radio", "MATLAB", "Python"],
+    media: [{
+      type: "image",
+      src: "/projects/ota-phase-measurements-calibration/measurement-setup.webp",
+      alt: "Indoor OTA measurement setup with a transmit antenna on a linear rail, two receive antennas, Pi-Radio FR3 hardware, and a ZCU111 RFSoC.",
+      width: 1800,
+      height: 703,
+      caption: "Radial transmitter motion preserves a nearly constant LOS angle while changing the multipath contributions.",
+    }],
+    results: [
+      { value: "26 × 5", label: "Indoor runs × carriers", detail: "130 measurement–frequency configurations · 8.75–14.9 GHz" },
+      { value: "29.5%", label: "Lower median calibration RMSE", detail: "3.36° → 2.37° · pooled random → systematic sampling" },
+      { value: "128 / 130", label: "Configurations improved", detail: "Same estimator and 50-observation budget" },
+    ],
+    resultNote: "Sampling results use a 598 mm span and 5% bandwidth, with errors measured against the paired full-bandwidth reference. The 29.5% reduction compares the two median RMSE values; the median of paired configuration-wise percentage reductions is 17.5%.",
+    poster: {
+      pdf: "/projects/ota-phase-measurements-calibration/poster.pdf",
+      preview: "/projects/ota-phase-measurements-calibration/poster-preview.webp",
+    },
   },
 ];

@@ -1,0 +1,93 @@
+---
+import ResearchFigure from "./ResearchFigure.astro";
+import type { Project } from "../data/projects";
+interface Props { project: Project; }
+const { project: p } = Astro.props;
+const assets = "/projects/ota-phase-measurements-calibration";
+---
+
+<section class="detail-section detail-grid wide-copy">
+  <div>
+    <p class="eyebrow">The question</p>
+    <h2>Can narrowband measurements recover useful phase information?</h2>
+    <p>Array calibration, beamforming, localization, and sensing depend on the phase of a selected propagation path. With limited bandwidth, nearby reflections remain unresolved and perturb the phase measured at the dominant delay peak.</p>
+    <p>This project studies how those errors behave statistically, how much spatial averaging helps, and where to collect measurements when the observation budget is limited.</p>
+  </div>
+  <ResearchFigure src={assets + "/bandwidth.webp"} alt="Illustrative wideband and narrowband delay responses showing unresolved multipath merging with a dominant LOS peak." width="1800" height="604" title="Bandwidth changes what the receiver can separate" caption="Synthetic channel illustration from the latest poster. A dominant delay peak can still contain a multipath-induced phase error." />
+</section>
+
+<section class="detail-section">
+  <p class="eyebrow">Experimental platform</p>
+  <h2>Controlled motion, real indoor multipath</h2>
+  <ResearchFigure src={p.media[0].src} alt={p.media[0].alt} width="1800" height="703" title="Pi-Radio / RFSoC measurement setup" caption="One transmit antenna moves along a linear rail while two receive antennas remain fixed. Radial motion maintains a nearly constant LOS angle as reflected paths change." />
+  <div class="detail-grid" style="margin-top:26px">
+    <div class="panel">
+      <h3>Measurement campaign</h3>
+      <ul>
+        <li><strong>26 indoor runs:</strong> laboratories, meeting rooms, cubicles, and hallways.</li>
+        <li><strong>Five carriers:</strong> 8.75, 10.25, 12.975, 13.9, and 14.9 GHz.</li>
+        <li><strong>300 transmitter positions:</strong> 2 mm steps across a 598 mm span.</li>
+        <li><strong>75 observations per position:</strong> 15 OFDM frames × 5 symbols, with 423.12 MHz of full measurement bandwidth.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Paired measurement processing</h3>
+      <p>Narrowband and wideband responses are derived from the same recorded signals, enabling paired comparisons across bandwidths.</p>
+      <ul>
+        <li>Synchronize, estimate channel frequency responses, align the channels, and suppress leakage.</li>
+        <li>Compensate the measured hardware response and check pre-/post-run calibration consistency.</li>
+        <li>Apply bandwidth masks, transform to delay, extract the peak coefficient, and form receive-channel ratios.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <p class="eyebrow">Statistics &amp; spatial averaging</p>
+  <h2>From multipath amplitude to phase-error statistics</h2>
+  <p>The model combines a dominant component with a weaker aggregate residual. When the residual phase is uniform and independent of its amplitude, the derived phase-error distribution is symmetric with zero mean. A normalized weak-perturbation approximation with Rayleigh residual amplitudes is compared with the measured distributions.</p>
+  <div class="figures two">
+    <ResearchFigure src={assets + "/cdf-validation.webp"} alt="Measured narrowband-minus-wideband phase-error CDFs compared with the theoretical model and a Gaussian baseline." width="1800" height="1002" title="Measured distribution comparison" caption="Representative CDFs from the poster. Across all 30 pooled bandwidth–frequency settings, the proposed approximation has smaller empirical CDF discrepancies than the RMS-fitted Gaussian baseline." />
+    <ResearchFigure src={assets + "/spatial-correlation.webp"} alt="Inter-trial standard deviation and within-trial standard error versus spatial window length for two carrier frequencies." width="1800" height="744" title="Spatial correlation limits averaging" caption="An illustrative Lab 2 run at 5% bandwidth and 50 observations per trial. At 8.75 GHz, inter-trial standard deviation falls from 31.3° to 4.4° as coverage increases." />
+  </div>
+  <p class="note" style="margin-top:20px">The CDF comparison describes pooled measurement data. Agreement between uncertainty curves indicates stability, but does not establish independent samples or the absence of residual bias.</p>
+</section>
+
+<section class="detail-section detail-grid wide-copy">
+  <div>
+    <p class="eyebrow">Relative OTA calibration</p>
+    <h2>Average phase across space</h2>
+    <p>{p.approach}</p>
+    <p>Each channel ratio is normalized to unit magnitude before circular averaging, giving every observed phase equal weight. A full-bandwidth estimate using all 22,500 observations over the complete trajectory provides the empirical reference.</p>
+    <p>Varying the spatial span while holding the observation count fixed shows that covering more space helps beyond simply collecting more samples at one location.</p>
+  </div>
+  <ResearchFigure src={assets + "/calibration-distance.webp"} alt="Relative phase-calibration RMSE versus available spatial span at five carrier frequencies with 50 observations." width="1800" height="765" title="Spatial coverage at a fixed budget" caption="Illustrative run from the latest poster: 5% bandwidth and 50 observations. Error is measured relative to the paired full-bandwidth reference." />
+</section>
+
+<section class="detail-section">
+  <p class="eyebrow">Sampling design &amp; results</p>
+  <h2>Spread the same 50 observations across the trajectory</h2>
+  <p>Pooled random sampling draws from all observations in a spatial window and can revisit a position. Systematic sampling instead takes one observation at each of 50 distinct, approximately equally spaced positions. Both strategies use the same circular estimator and observation count.</p>
+  <div class="metrics">{p.results?.map(result => <div class="metric"><span class="metric-value">{result.value}</span><span class="metric-label">{result.label}</span><p class="metric-detail">{result.detail}</p></div>)}</div>
+  <p class="note">{p.resultNote}</p>
+  <div class="figures two">
+    <ResearchFigure src={assets + "/sampling-median.webp"} alt="Median RMSE for pooled random and systematic sampling versus available span across 130 configurations at 5% bandwidth." width="1800" height="690" title="Lower median error at the same sampling budget" caption="At 598 mm and 5% bandwidth, median RMSE decreases from 3.36° to 2.37°. The 29.5% reduction is calculated from these two medians." />
+    <ResearchFigure src={assets + "/paired-gains.webp"} alt="Median paired RMSE reduction and interquartile range for systematic versus random sampling across five bandwidth settings." width="1800" height="571" title="Configuration-wise improvements" caption="Median and interquartile range of paired percentage reductions across 130 configurations at 598 mm. At 5% bandwidth, the median paired reduction is 17.5%; bars are not confidence intervals." />
+  </div>
+  <div class="table-wrap">
+    <table>
+      <caption class="sr-only">Sampling comparison at 5% bandwidth, 598 mm span, and 50 observations</caption>
+      <thead><tr><th scope="col">Sampling strategy</th><th scope="col">Median RMSE</th><th scope="col">90th-percentile RMSE</th><th scope="col">90% absolute-error tolerance</th></tr></thead>
+      <tbody><tr><th scope="row">Pooled random</th><td>3.36°</td><td>7.95°</td><td>8.1°</td></tr><tr><th scope="row">Systematic 50 × 1</th><td>2.37°</td><td>7.22°</td><td>7.3°</td></tr></tbody>
+    </table>
+  </div>
+  <p class="note" style="margin-top:16px">Median and 90th-percentile RMSE summarize the 130 configuration-wise errors. The 90% tolerance summarizes pooled absolute trial errors. All entries use 5% bandwidth, a 598 mm span, and 50 observations.</p>
+  <div class="panel" style="margin-top:26px"><h3>What this means for calibration</h3><p>Cover more space and distribute observations evenly. Spatial averaging reduces variability and improves agreement with the wideband reference, but finite coverage and residual phase offsets still limit accuracy. The study estimates relative phase in the calibration-source direction; it does not identify absolute hardware phase or a complete angular array response.</p></div>
+</section>
+
+<section class="detail-section">
+  <div class="section-heading"><div><p class="eyebrow">Paper &amp; latest poster</p><h2>The complete study</h2></div><a class="button" href={p.poster?.pdf} target="_blank" rel="noopener">Open poster PDF ↗</a></div>
+  <p><strong>Research manuscript:</strong> {p.name}. Shizhen Jia, Andrea Bedin, Aditya Dhananjay, Joerg Widmer, and Sundeep Rangan. Shizhen Jia and Andrea Bedin contributed equally.</p>
+  <div class="actions" style="margin-top:20px"><a class="button primary" href={assets + "/paper.pdf"} target="_blank" rel="noopener">Read full paper ↗</a></div>
+  <a class="poster-image" href={p.poster?.pdf} target="_blank" rel="noopener" aria-label="Open the complete Narrowband OTA Phase Calibration poster"><img src={p.poster?.preview} alt="Latest 2026 research poster covering the measurement platform, phase-error statistics, relative calibration, and sampling reliability." width="2100" height="1400" loading="lazy" decoding="async" /></a>
+</section>

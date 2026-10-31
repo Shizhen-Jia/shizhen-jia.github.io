@@ -1,186 +1,77 @@
 ---
-const {
-  title = "Shizhen Jia | PhD Student @ NYU WIRELESS",
-  description = "Shizhen Jia is a PhD student at NYU WIRELESS working on NTN, LEO satellite systems, anti-jamming, and interference nulling.",
-  active = "home", // "home" | "news" | "projects" | "publications" | "cv"
-} = Astro.props;
-
-const nav = [
-  { key: "home", label: "Home", href: "/" },
-  { key: "news", label: "News", href: "/news" },
-  { key: "projects", label: "Projects", href: "/projects" },
-  { key: "publications", label: "Publications", href: "/publications" },
-  { key: "cv", label: "CV", href: "/cv" },
-];
-
+import "../styles/site.css";
+const { title = "Shizhen Jia | NYU WIRELESS", description = "Shizhen Jia, Ph.D. candidate at NYU WIRELESS. Research in satellite networks, spectrum coexistence, and wireless signal processing.", active = "home" } = Astro.props;
+const nav = [{key:"home",label:"Home"},{key:"news",label:"News"},{key:"projects",label:"Projects"},{key:"publications",label:"Publications"},{key:"cv",label:"CV"}];
+const isHome = Astro.url.pathname === "/";
 const site = Astro.site ?? new URL("https://shizhen-jia.github.io");
 const canonicalUrl = new URL(Astro.url.pathname, site).toString();
-const ogImageUrl = new URL("/img/head.jpg", site).toString();
-const sitemapUrl = new URL("/sitemap.xml", site).toString();
 ---
-
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta name="color-scheme" content="dark" />
-
+    <meta name="theme-color" content="#0c1218" />
+    <link rel="icon" href="/favicon.svg" />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="sitemap" type="application/xml" href={sitemapUrl} />
-
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Shizhen Jia" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={ogImageUrl} />
-
+    <meta property="og:image" content={new URL("/img/head.jpg", site).toString()} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageUrl} />
-
-    <style>
-      :root {
-        --bg: #0b1020;
-        --panel: rgba(255, 255, 255, 0.04);
-        --border: rgba(255, 255, 255, 0.1);
-        --text: #e9ecf6;
-        --muted: rgba(233, 236, 246, 0.72);
-        --link: #8ab4f8;
-        --shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
-        --radius: 16px;
-        --maxw: 980px;
-      }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        background:
-          radial-gradient(1200px 700px at 70% 10%, rgba(138, 180, 248, 0.18), transparent 60%),
-          radial-gradient(900px 600px at 10% 20%, rgba(153, 102, 255, 0.12), transparent 55%),
-          var(--bg);
-        color: var(--text);
-      }
-      a { color: var(--link); text-decoration: none; }
-      a:hover { text-decoration: underline; }
-      header {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        backdrop-filter: blur(14px);
-        background: rgba(11, 16, 32, 0.75);
-        border-bottom: 1px solid var(--border);
-      }
-      .nav {
-        max-width: var(--maxw);
-        margin: 0 auto;
-        padding: 14px 18px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-      }
-      .brand {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.1;
-      }
-      .brand .name { font-weight: 750; letter-spacing: 0.2px; }
-      .brand .tag { font-size: 12px; color: var(--muted); }
-      .navlinks {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        flex-wrap: wrap;
-      }
-      .navlinks a {
-        padding: 8px 10px;
-        border-radius: 12px;
-        color: var(--muted);
-      }
-      .navlinks a.active {
-        color: var(--text);
-        background: var(--panel);
-        border: 1px solid var(--border);
-        text-decoration: none;
-      }
-      main {
-        max-width: var(--maxw);
-        margin: 0 auto;
-        padding: 56px 18px 72px;
-      }
-      .card {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-      }
-      .section { padding: 26px; }
-      h1 { margin: 0 0 10px; font-size: 44px; letter-spacing: -0.6px; }
-      h2 { margin: 0 0 16px; font-weight: 500; color: var(--muted); }
-      p { color: var(--muted); line-height: 1.65; margin: 0 0 16px; }
-      ul { margin: 14px 0 0 18px; color: var(--muted); }
-      li { margin: 8px 0; }
-      .row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 16px; }
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        padding: 8px 12px;
-        border-radius: 999px;
-        border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.03);
-        color: var(--muted);
-        font-size: 13px;
-      }
-      .footer {
-        margin-top: 28px;
-        color: rgba(233, 236, 246, 0.55);
-        font-size: 12px;
-      }
-      @media (max-width: 640px) {
-        h1 { font-size: 34px; }
-        main { padding-top: 32px; }
-        .nav { flex-direction: column; align-items: flex-start; gap: 12px; }
-        .navlinks { gap: 4px; }
-        .navlinks a { padding: 6px 8px; font-size: 14px; }
-      }
-    </style>
+    <meta name="twitter:image" content={new URL("/img/head.jpg", site).toString()} />
   </head>
-
   <body>
-    <header>
-      <div class="nav">
-        <div class="brand">
-          <div class="name">Shizhen Jia</div>
-          <div class="tag">PhD Student @ NYU WIRELESS · NTN · Anti-Jamming</div>
-        </div>
-
-        <div class="navlinks">
-          {nav.map((item) => (
-            <a
-              href={item.href}
-              class={item.key === active ? "active" : ""}
-              aria-current={item.key === active ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          ))}
-          <a href="https://github.com/Shizhen-Jia" target="_blank" rel="noopener">GitHub ↗</a>
-        </div>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="navbar container">
+        <a class="brand" href="/#home" aria-label="Shizhen Jia — Home">
+          <span class="brand-mark" aria-hidden="true">SJ.</span>
+          <span><span class="brand-name">Shizhen Jia</span><span class="brand-meta">NYU WIRELESS · ELECTRICAL ENGINEERING</span></span>
+        </a>
+        <nav class="navlinks" aria-label="Main navigation">
+          {nav.map(item => <a href={(isHome ? "#" : "/#") + item.key} data-section-link={item.key} class:list={{active:item.key===active}} aria-current={item.key===active ? "location" : undefined}>{item.label}</a>)}
+        </nav>
       </div>
     </header>
-
-    <main>
-      <div class="card section">
-        <slot />
-        <div class="footer">
-          © {new Date().getFullYear()} Shizhen Jia · Built with Astro · Hosted on GitHub Pages
-        </div>
+    <main id="main-content"><slot /></main>
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p>© {new Date().getFullYear()} Shizhen Jia · NYU WIRELESS</p>
+        <div class="footer-links"><a href="mailto:sj4025@nyu.edu">Email ↗</a><a href="https://github.com/Shizhen-Jia" target="_blank" rel="noopener">GitHub ↗</a><a href="/#home">Back to top ↑</a></div>
       </div>
-    </main>
+    </footer>
+    <script>
+      if (window.location.pathname === "/") {
+        const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-section-link]"));
+        const sections = links.map(link => document.getElementById(link.dataset.sectionLink || "")).filter((node): node is HTMLElement => node !== null);
+        const update = () => {
+          let current = sections[0]?.id;
+          const offset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-offset")) + 20;
+          for (const section of sections) if (section.getBoundingClientRect().top <= offset) current = section.id;
+          for (const link of links) {
+            const selected = link.dataset.sectionLink === current;
+            link.classList.toggle("active", selected);
+            if (selected) link.setAttribute("aria-current","location"); else link.removeAttribute("aria-current");
+          }
+        };
+        let queued = false;
+        window.addEventListener("scroll", () => {
+          if (!queued) { queued = true; requestAnimationFrame(() => { update(); queued = false; }); }
+        }, {passive:true});
+        window.addEventListener("resize", update);
+        window.addEventListener("load", update);
+        update();
+      }
+    </script>
   </body>
 </html>

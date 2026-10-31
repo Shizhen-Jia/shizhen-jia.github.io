@@ -1,0 +1,16 @@
+---
+import { publications } from "../data/publications";
+---
+<div class="publication-list">
+  {publications.map(p => (
+    <article class="publication">
+      <div class="publication-meta"><p class="pub-year">{p.year}</p><p class="pub-venue">{p.venue ?? p.status}</p></div>
+      <div>
+        <h3><a href={p.paperUrl} target="_blank" rel="noopener">{p.title}</a></h3>
+        <p class="authors">{p.authors.map((author,i) => <>{i>0 ? ", " : ""}{author==="Shizhen Jia" ? <strong>{author}</strong> : author}</>)}</p>
+        <div class="tags">{p.keywords.map(tag => <span class="tag">{tag}</span>)}</div>
+        <div class="pub-actions"><a href={p.paperUrl} target="_blank" rel="noopener">Read paper ↗</a>{p.codeUrl && <a href={p.codeUrl} target="_blank" rel="noopener">View code ↗</a>}</div>
+      </div>
+    </article>
+  ))}
+</div>

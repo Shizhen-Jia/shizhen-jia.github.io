@@ -1,39 +1,10 @@
-<!-- <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>CV | Shizhen Jia</title>
-    <meta name="viewport" content="width=device-width" />
-  </head>
-  <body style="font-family:system-ui;margin:0;background:#0f1220;color:#eaeaf0;">
-    <main style="max-width:900px;margin:0 auto;padding:3rem 1.5rem;">
-      <a href="/" style="color:#8ab4f8;text-decoration:none;">← Home</a>
-      <h1 style="margin-top:1rem;">CV</h1>
-      <p><a href="/cv.pdf" target="_blank" style="color:#8ab4f8;text-decoration:none;">Open CV (PDF)</a></p>
-      <iframe src="/cv.pdf" style="width:100%;height:80vh;border:1px solid #262a3f;border-radius:12px;"></iframe>
-    </main>
-  </body>
-</html> -->
-
-
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CVContent from "../components/CVContent.astro";
 ---
-
-<BaseLayout
-  title="CV | Shizhen Jia"
-  description="Curriculum vitae of Shizhen Jia, PhD candidate in Electrical Engineering at NYU WIRELESS."
-  active="cv"
->
-  <h1>CV</h1>
-  <p>
-    <a class="pill" href="/cv.pdf" target="_blank" rel="noopener">Open CV (PDF) ↗</a>
-  </p>
-
-  <div class="card" style="padding:12px; margin-top:14px;">
-    <iframe
-      src="/cv.pdf"
-      style="width:100%; height:78vh; border:0; border-radius:12px;"
-      title="Shizhen Jia CV"
-    ></iframe>
+<BaseLayout title="Curriculum Vitae | Shizhen Jia" active="cv">
+  <div class="container">
+    <div class="page-hero"><p class="eyebrow">Shizhen Jia · NYU WIRELESS</p><h1>Curriculum Vitae</h1><p>Education, experience, research projects, publications, and professional service.</p></div>
+    <section aria-label="Curriculum Vitae" style="padding-bottom: 60px;"><CVContent /></section>
   </div>
 </BaseLayout>

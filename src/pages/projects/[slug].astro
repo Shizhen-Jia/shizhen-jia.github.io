@@ -1,0 +1,131 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ResearchFigure from "../../components/ResearchFigure.astro";
+import { projects } from "../../data/projects";
+export function getStaticPaths() {
+  return projects.map(project => ({ params: { slug: project.slug }, props: { project } }));
+}
+const { project: p } = Astro.props;
+const isLeo = p.slug === "leo-spatial-reuse";
+const isCoex = p.slug === "ntn-adjacent-channel-coexistence";
+const isNulling = p.slug === "nulling-upper-mid-band";
+const scenarios = [
+  ["S1", "TN downlink → NTN downlink", "Terrestrial base station", "NTN terminal"],
+  ["S2", "TN uplink → NTN uplink", "Terrestrial user", "Satellite receiver"],
+  ["S3", "NTN downlink → TN downlink", "Satellite", "Terrestrial user"],
+  ["S4", "NTN uplink → TN uplink", "NTN terminal", "Terrestrial base station"],
+  ["S5", "NTN uplink → TN downlink", "NTN terminal", "Terrestrial user"],
+  ["S6", "TN downlink → NTN uplink", "Terrestrial base station", "Satellite receiver"],
+];
+const index = projects.findIndex(project => project.slug === p.slug);
+const next = projects[(index + 1) % projects.length];
+---
+<BaseLayout title={p.name + " | Shizhen Jia"} description={p.desc} active="projects">
+  <div class="container">
+    <div class="detail-body">
+      <a class="breadcrumb" href="/#projects">← All projects</a>
+      <header class="detail-header">
+        <p class="eyebrow">Research project / {String(index + 1).padStart(2,"0")}</p>
+        <h1>{p.name}</h1>
+        {p.affiliation && <p class="detail-affiliation">{p.affiliation}</p>}
+        <div class="tags" style={!p.affiliation ? "margin-top:24px" : undefined}>{p.tags.map(tag => <span class="tag">{tag}</span>)}</div>
+        <p class="lede">{p.desc}</p>
+        {p.links.length > 0 && <div class="actions">{p.links.map(link => <a class="button" href={link.href} target="_blank" rel="noopener">{link.label} ↗</a>)}</div>}
+      </header>
+
+      {isLeo && <>
+        <section class="detail-section detail-grid wide-copy">
+          <div><p class="eyebrow">The question</p><h2>More satellites.<br />How much more capacity?</h2>
+            <p>Several visible LEO satellites can illuminate the same small hotspot. Reusing the same spectrum increases the number of simultaneous links, but also creates interference between overlapping beams.</p>
+            <p>Choosing the nearest satellites favors strong links. It can also select satellites with similar arrival directions, making their signals harder to separate at the ground terminal. The scheduling decision must account for both link strength and receive-array leakage.</p>
+          </div>
+          <ResearchFigure src="/projects/leo-spatial-reuse/scenario.png" alt={p.media[0].alt} width="1414" height="1276" title="Shared cell, shared spectrum" caption="Solid links indicate desired downlinks; dashed links indicate cochannel interference between concurrent satellite transmissions." />
+        </section>
+        <section class="detail-section">
+          <p class="eyebrow">Method</p><h2>Beam-leakage-aware branch-and-bound</h2>
+          <p>{p.approach}</p>
+          <div class="detail-grid" style="margin-top:26px">
+            <div class="panel"><h3>Model the interference</h3><p>Combine satellite ephemerides, received powers, array responses, and atmospheric losses. Pairwise receive-array leakage connects a candidate satellite set to the resulting per-link SINR and sum rate.</p></div>
+            <div class="panel"><h3>Search with an optimality bound</h3><p>A greedy-plus-swap initialization supplies a strong feasible schedule. An admissible upper bound prunes unpromising subsets, while preserving the optimal solution for the reference-point model.</p></div>
+          </div>
+        </section>
+        <section class="detail-section">
+          <p class="eyebrow">Evaluation</p><h2>Gains where links need them most</h2>
+          <p>The study evaluates a 24-hour Starlink trace with 720 snapshots, varying beam count, scheduling strategy, and cell radius. The largest gains occur on weaker links, while total capacity increases sublinearly with the number of overlapping beams.</p>
+          <div class="metrics">{p.results?.map(result => <div class="metric"><span class="metric-value">{result.value}</span><span class="metric-label">{result.label}</span><p class="metric-detail">{result.detail}</p></div>)}</div>
+          <p class="note">{p.resultNote} Branch-and-bound retains exponential worst-case complexity.</p>
+        </section>
+        <section class="detail-section">
+          <div class="section-heading"><div><p class="eyebrow">Full research poster</p><h2>The study at a glance</h2></div><a class="button" href={p.poster?.pdf} target="_blank" rel="noopener">Open poster PDF ↗</a></div>
+          <a class="poster-image" href={p.poster?.pdf} target="_blank" rel="noopener" aria-label="Open the complete LEO spatial reuse research poster"><img src={p.poster?.preview} alt="Full research poster showing the system model, branch-and-bound method, and capacity and runtime results." loading="lazy" decoding="async" /></a>
+          <div class="actions" style="margin-top:20px"><a class="button" href={encodeURI("/papers/Intra-Cell Spatial Reuse in LEO Downlinks - Beam-Leakage-Aware Satellite Scheduling.pdf")} target="_blank" rel="noopener">Read manuscript ↗</a></div>
+        </section>
+      </>}
+
+      {isCoex && <>
+        <section class="detail-section">
+          <p class="eyebrow">Two connected studies</p><h2>From reference scenarios to multi-satellite coexistence</h2>
+          <div class="detail-grid">
+            <div class="panel"><h3>NTN–NTN downlink interference</h3><p>Evaluate LEO-to-LEO and LEO-to-GEO downlink coexistence at 2 GHz, with multi-beam satellite patterns, varying satellite geometry, and adjacent-channel interference. Extend the analysis to aggregate interference from multiple satellites.</p><p class="note">Study reference: 3GPP Feature Lead and Way Forward since Dec. 2025.</p></div>
+            <div class="panel"><h3>NTN–TN coexistence</h3><p>Reproduce the coexistence results in 3GPP TR 38.863 across terrestrial and satellite link directions, then extend the framework to multi-satellite systems. Evaluate both networks as victims to capture interference in each direction.</p><p class="note">Six scenarios cover downlink, uplink, and cross-link interference.</p></div>
+          </div>
+        </section>
+        <section class="detail-section detail-grid wide-copy">
+          <div><p class="eyebrow">A common simulation framework</p><h2>Geometry, antennas, channels, and spectrum</h2>
+            <p>{p.approach}</p>
+            <ul><li><strong>Satellite links:</strong> configurable LEO/GEO geometry and seven-beam patterns, with 3GPP NTN propagation and ITU-R P.618 atmospheric loss.</li><li><strong>Terrestrial networks:</strong> urban and rural macro deployments, 19 sites and 57 sectors per cluster, wrap-around geometry, and user placement.</li><li><strong>Spectral coupling:</strong> transmitter leakage, receiver selectivity, uplink resource allocation, and power control.</li><li><strong>Evaluation:</strong> geometry and Monte Carlo sweeps, baseline versus interfered SINR, and mean and fifth-percentile throughput loss.</li></ul>
+          </div>
+          <ResearchFigure src="/projects/ntn-coexistence/system-model.webp" alt="Terrestrial downlink and NTN uplink coexistence, showing satellite beams, terrestrial cells, desired links, and adjacent-channel interference." width="1122" height="1402" title="An example cross-link configuration" caption="TN downlink / NTN uplink represents Scenarios 5 and 6. Extracted from the final internship presentation, slide 14." />
+        </section>
+        <section class="detail-section">
+          <p class="eyebrow">NTN–NTN study</p><h2>Separate geometry effects from spectral isolation</h2>
+          <p>The satellite-to-satellite study sweeps victim and aggressor positions and the adjacent-channel interference ratio (ACIR). This connects orbit geometry and antenna response to the interference seen by the victim ground terminal.</p>
+          <div class="figures two">
+            <ResearchFigure src="/projects/ntn-coexistence/satellite-geometry.webp" alt="Victim and aggressor satellite positions sampled on a hemisphere above a ground user." width="1800" height="1017" title="Victim and aggressor geometry" caption="Sampled satellite directions used in the position sweep. Final presentation, slide 12." />
+            <ResearchFigure src="/projects/ntn-coexistence/ntn-ntn-loss.webp" alt="Average and fifth-percentile throughput loss versus ACIR for the single-aggressor NTN–NTN baseline." width="1800" height="1156" title="Adjacent-channel loss baseline" caption="Average and fifth-percentile losses are compared with the 5% criterion. This figure shows the single-aggressor reference experiment, not an aggregate multi-satellite result. Final presentation, slide 12." />
+          </div>
+        </section>
+        <section class="detail-section">
+          <p class="eyebrow">NTN–TN study</p><h2>Six interference directions, one framework</h2>
+          <p>Independent uplink and downlink settings support the six study scenarios. The framework retains each network's desired links and intra-system interference, then adds the cross-system interference to measure the resulting loss.</p>
+          <div class="table-wrap"><table><caption class="sr-only">Six NTN–TN coexistence scenarios</caption><thead><tr><th scope="col">Scenario</th><th scope="col">Direction</th><th scope="col">Aggressor</th><th scope="col">Victim</th></tr></thead><tbody>{scenarios.map(row => <tr>{row.map((cell,i) => i===0 ? <th scope="row">{cell}</th> : <td>{cell}</td>)}</tr>)}</tbody></table></div>
+          <div class="detail-grid" style="margin-top:28px;align-items:center">
+            <ResearchFigure src="/projects/ntn-coexistence/beam-footprints.webp" alt="LEO-600 seven-beam satellite footprints containing urban terrestrial clusters." width="1800" height="1121" title="Multi-beam deployment" caption="A LEO-600 Set-1, UMa example with one central beam and six surrounding beams. Final presentation, slide 16." />
+            <div><h3>Extending beyond one satellite</h3><p>The multi-satellite extension introduces simultaneously active satellite links and aggregates their interference at each victim receiver. This permits evaluation of constellation geometry and overlapping coverage alongside the original terrestrial–satellite reference scenarios.</p><p>ACIR requirements are evaluated separately for each geometry, antenna configuration, deployment, and loading condition. Both average performance and weaker-link performance are tracked.</p></div>
+          </div>
+        </section>
+        <section class="detail-section">
+          <p class="eyebrow">Baseline reproduction / Scenario 3</p><h2>Satellite downlink → terrestrial downlink</h2>
+          <p>The reported rural macro baseline uses LEO-600 at nadir, a seven-beam NTN downlink, and active antenna systems at terrestrial base stations. The plots compare the simulation with the 3GPP study curves shown in the final presentation.</p>
+          <div class="figures two">
+            <ResearchFigure src="/projects/ntn-coexistence/scenario-3-mean.webp" alt="Scenario 3 average throughput loss versus ACIR, comparing this simulation with 3GPP reference submissions." width="1800" height="1014" title="Mean throughput loss" caption="In this baseline, the reported loss is 4.75% at 20 dB ACIR. Final presentation, slide 17." />
+            <ResearchFigure src="/projects/ntn-coexistence/scenario-3-edge.webp" alt="Scenario 3 fifth-percentile throughput loss versus ACIR, comparing this simulation with 3GPP reference submissions." width="1800" height="1014" title="Fifth-percentile throughput loss" caption="The reported loss is 3.98% at 28 dB ACIR under the same baseline assumptions. Final presentation, slide 17." />
+          </div>
+        </section>
+        <section class="detail-section">
+          <p class="eyebrow">Baseline reproduction / Scenario 6</p><h2>Terrestrial downlink → satellite uplink</h2>
+          <p>This rural macro configuration uses a LEO-600 victim at 45° elevation, non-AAS terrestrial base stations, and 20% active TN sectors. It evaluates interference from terrestrial downlink transmissions at the satellite uplink receiver.</p>
+          <div class="figures two">
+            <ResearchFigure src="/projects/ntn-coexistence/scenario-6-mean.webp" alt="Scenario 6 mean throughput loss versus ACIR for this simulation and two non-AAS 3GPP study submissions." width="1800" height="1014" title="Mean throughput loss" caption="The reported mean loss is 4.58% at 30 dB ACIR in this configuration. Final presentation, slide 18." />
+            <ResearchFigure src="/projects/ntn-coexistence/scenario-6-edge.webp" alt="Scenario 6 fifth-percentile throughput loss versus ACIR for this simulation and two non-AAS 3GPP study submissions." width="1800" height="1014" title="Fifth-percentile throughput loss" caption="The presentation reports approximately 28 dB ACIR to meet the 5% loss criterion. Final presentation, slide 18." />
+          </div>
+          <p class="note" style="margin-top:20px">Figures are extracted from the final internship presentation. The displayed numerical results refer to their stated baseline configurations; they provide reference points for the subsequent multi-satellite evaluation.</p>
+        </section>
+      </>}
+
+      {isNulling && <>
+        <section class="detail-section"><p class="eyebrow">Protocol overview</p><h2>Detect, estimate, and suppress interference</h2><p>This work studies terrestrial–satellite spectrum sharing in the upper mid-band through joint victim detection, channel estimation, and interference nulling.</p>
+          <div class="detail-grid" style="margin-top:26px;align-items:center">
+            <div><ul><li>Four-stage coexistence protocol: uplink broadcast, victim detection, channel estimation, and downlink nulling.</li><li>Regularized null-steering beamforming balances desired-link gain with interference suppression.</li><li>Site-specific rural macrocell evaluation uses ray tracing to study overhead and INR/SNR trade-offs.</li></ul></div>
+            <ResearchFigure src="/projects/nulling/protocol.svg" alt="Conceptual diagram of the four-stage terrestrial–satellite interference nulling protocol." width="800" height="450" title="Coexistence protocol" caption="Conceptual illustration of the detection, estimation, and nulling workflow." />
+          </div>
+        </section>
+        <section class="detail-section"><h2>Paper &amp; implementation</h2><p>Joint Detection, Channel Estimation and Interference Nulling for Terrestrial-Satellite Downlink Co-Existence in the Upper Mid-Band · IEEE GLOBECOM 2025.</p><div class="actions" style="margin-top:22px"><a class="button primary" href="https://ieeexplore.ieee.org/document/11432307/" target="_blank" rel="noopener">Read paper ↗</a><a class="button" href={p.links[0].href} target="_blank" rel="noopener">View code ↗</a></div></section>
+      </>}
+
+      {!isLeo && !isCoex && !isNulling && <section class="pending-detail" aria-label="Additional project material"><p class="eyebrow">More to come</p><h2 style="font-size:28px;margin-bottom:14px">Figures &amp; detailed write-up</h2><p>Additional project figures and technical details will be added here.</p></section>}
+
+      <nav class="related-nav" aria-label="Project navigation"><a class="text-link" href="/#projects">← All projects</a><a class="text-link" href={"/projects/" + next.slug + "/"}>Next project →</a></nav>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://shizhen-jia.github.io/</loc>
-  </url>
-  <url>
-    <loc>https://shizhen-jia.github.io/news/</loc>
-  </url>
-  <url>
-    <loc>https://shizhen-jia.github.io/projects/</loc>
-  </url>
-  <url>
-    <loc>https://shizhen-jia.github.io/publications/</loc>
-  </url>
-  <url>
-    <loc>https://shizhen-jia.github.io/cv/</loc>
-  </url>
+  <url><loc>https://shizhen-jia.github.io/</loc></url>
+  <url><loc>https://shizhen-jia.github.io/news/</loc></url>
+  <url><loc>https://shizhen-jia.github.io/projects/</loc></url>
+  <url><loc>https://shizhen-jia.github.io/publications/</loc></url>
+  <url><loc>https://shizhen-jia.github.io/cv/</loc></url>
+  <url><loc>https://shizhen-jia.github.io/projects/leo-spatial-reuse/</loc></url>
+  <url><loc>https://shizhen-jia.github.io/projects/ntn-adjacent-channel-coexistence/</loc></url>
+  <url><loc>https://shizhen-jia.github.io/projects/nulling-upper-mid-band/</loc></url>
+  <url><loc>https://shizhen-jia.github.io/projects/distributed-uplink-anti-jamming/</loc></url>
+  <url><loc>https://shizhen-jia.github.io/projects/ota-phase-measurements-calibration/</loc></url>
 </urlset>

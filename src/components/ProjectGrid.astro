@@ -1,0 +1,28 @@
+---
+import { projects } from "../data/projects";
+const cardInfo: Record<string, {title:string;summary:string;category:string;cover?:string;alt?:string;glyph?:string}> = {
+  "leo-spatial-reuse": {title:"LEO Spatial Reuse & Satellite Scheduling", summary:"Beam-leakage-aware scheduling for concurrent satellite downlinks, improving capacity while protecting weaker links.",category:"Satellite networks",cover:"/projects/leo-spatial-reuse/scenario.png",alt:"Multiple satellites serving ground terminals with desired and interfering links."},
+  "ntn-adjacent-channel-coexistence": {title:"NTNCoex: Satellite & Terrestrial Coexistence",summary:"Reproducing 3GPP coexistence results and extending the study to multi-satellite systems with aggregate interference.",category:"Spectrum sharing",cover:"/projects/ntn-coexistence/beam-footprints.webp",alt:"Seven satellite beam footprints and terrestrial network clusters from the NTNCoex study."},
+  "nulling-upper-mid-band": {title:"Interference Nulling in the Upper Mid-Band",summary:"Joint detection, channel estimation, and null steering for terrestrial–satellite spectrum sharing.",category:"Wireless signal processing",cover:"/projects/nulling/protocol.svg",alt:"Four-stage coexistence protocol: broadcast, detect, estimate, and null."},
+  "distributed-uplink-anti-jamming": {title:"Distributed Uplink Anti-Jamming",summary:projects[3].desc,category:"Resilient satellite networks",glyph:"↗"},
+  "ota-phase-measurements-calibration": {title:"OTA Phase & Array Calibration",summary:projects[4].desc,category:"Wireless measurements",glyph:"∿"}
+};
+---
+<div class="project-grid">
+  {projects.map(p => {
+    const card = cardInfo[p.slug];
+    return (
+      <article id={p.slug} class="project-card">
+        {card.cover ? <div class="project-cover"><img src={card.cover} alt={card.alt} loading="lazy" decoding="async" /></div> :
+          <div class="project-placeholder" aria-label="Project image forthcoming"><span class="placeholder-glyph" aria-hidden="true">{card.glyph}</span><span>Project visual forthcoming</span></div>}
+        <div class="project-card-body">
+          <p class="project-category">{card.category}</p>
+          <div class="tags">{p.tags.map(tag => <span class="tag">{tag}</span>)}</div>
+          <h3><a href={"/projects/" + p.slug + "/"}>{card.title}</a></h3>
+          <p class="card-summary">{card.summary}</p>
+          <div class="project-card-footer"><span>{card.cover ? "Explore project" : "Overview & resources"}</span><span class="arrow" aria-hidden="true">↗</span></div>
+        </div>
+      </article>
+    );
+  })}
+</div>

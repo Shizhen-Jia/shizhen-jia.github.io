@@ -1,0 +1,9 @@
+---
+const { src, alt, title, caption, width, height } = Astro.props;
+---
+<figure class="figure">
+  <a href={src} target="_blank" rel="noopener" aria-label={"Open full-size figure: " + title}>
+    <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+  </a>
+  <figcaption><strong>{title}.</strong> {caption} <a href={src} target="_blank" rel="noopener">Full size ↗</a></figcaption>
+</figure>

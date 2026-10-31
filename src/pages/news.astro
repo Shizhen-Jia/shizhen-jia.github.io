@@ -1,77 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import NewsContent from "../components/NewsContent.astro";
 ---
-
-<BaseLayout
-  title="News | Shizhen Jia"
-  description="News and updates from Shizhen Jia."
-  active="news"
->
-  <style>
-    .news {
-      min-height: 200px;
-    }
-
-    h1 {
-      margin: 0;
-      font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-      font-size: 42px;
-      letter-spacing: -0.5px;
-      color: #f5f7ff;
-    }
-
-    .news-list {
-      list-style: none;
-      margin: 24px 0 0;
-      padding: 0;
-    }
-
-    .news-item {
-      display: grid;
-      grid-template-columns: 100px minmax(0, 1fr);
-      gap: 16px;
-      margin: 0;
-      padding: 20px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .news-date {
-      color: var(--link);
-      font-weight: 600;
-      line-height: 1.65;
-    }
-
-    .news-item p {
-      margin: 0;
-    }
-
-    .news-item strong {
-      color: var(--text);
-    }
-
-    @media (max-width: 640px) {
-      h1 {
-        font-size: 34px;
-      }
-
-      .news-item {
-        grid-template-columns: 1fr;
-        gap: 6px;
-      }
-    }
-  </style>
-
-  <section class="news" aria-labelledby="news-title">
-    <h1 id="news-title">News</h1>
-    <ul class="news-list" role="list">
-      <li class="news-item">
-        <time class="news-date" datetime="2025-11">Nov. 2025</time>
-        <p>
-          I served as a <strong>Session Chair</strong> for
-          <strong>“Channel Modeling &amp; Estimation” (SAC-SSC-03)</strong> at
-          <strong>IEEE GLOBECOM 2025</strong>.
-        </p>
-      </li>
-    </ul>
-  </section>
+<BaseLayout title="News | Shizhen Jia" active="news">
+  <div class="container">
+    <div class="page-hero"><p class="eyebrow">Shizhen Jia · NYU WIRELESS</p><h1>News</h1><p>Research updates and professional service.</p></div>
+    <section aria-label="News" style="padding-bottom: 60px;"><NewsContent /></section>
+  </div>
 </BaseLayout>

@@ -35,13 +35,13 @@ export const outdoorAlbums: { id: string; title: string; photos: OutdoorPhoto[] 
     id: "backpacking",
     title: "Backpacking",
     photos: [
+      { src: "/img/life/backpacking/camp-07.webp", alt: "A hiker silhouetted on a dune beneath a colorful sky", width: 1600, height: 1200 },
       { src: "/img/life/backpacking/camp-05.webp", alt: "A tent beside sand dunes in golden light", width: 1600, height: 1067 },
       { src: "/img/life/backpacking/camp-01.webp", alt: "A backpack, sleeping pad, and trekking poles on a sand dune", width: 1200, height: 1600 },
       { src: "/img/life/backpacking/camp-02.webp", alt: "Footprints leading across sand dunes toward distant mountains", width: 1200, height: 1600 },
       { src: "/img/life/backpacking/camp-03.webp", alt: "Rolling sand dunes with mountains on the horizon at dusk", width: 1600, height: 1067 },
       { src: "/img/life/backpacking/camp-04.webp", alt: "An illuminated tent beneath a starry night sky", width: 1600, height: 1067 },
       { src: "/img/life/backpacking/camp-06.webp", alt: "Pink clouds above a mountain range beyond the dunes", width: 1600, height: 1200 },
-      { src: "/img/life/backpacking/camp-07.webp", alt: "A hiker silhouetted on a dune beneath a colorful sky", width: 1600, height: 1200 },
     ],
   },
 ];

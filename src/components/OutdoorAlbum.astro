@@ -11,7 +11,7 @@ const trackId = `album-${id}-photos`;
 ---
 <article class="outdoor-album" data-outdoor-album={id} aria-roledescription="carousel" aria-labelledby={`album-${id}-title`}>
   <div class="album-track" id={trackId} data-album-track tabindex="0" role="group" aria-label={`${title} photos`}>
-    {photos.map((photo, i) => <div class="album-slide" data-album-slide role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${photos.length}`}>
+    {photos.map((photo, i) => <div class:list={["album-slide", { "album-slide--graphic": photo.kind === "graphic" }]} data-album-slide role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${photos.length}`}>
       <img class="album-backdrop" src={photo.src} alt="" aria-hidden="true" loading="lazy" decoding="async" draggable="false" />
       <button class="album-photo-button" type="button" data-photo-open aria-label={`Enlarge ${title} photo ${i + 1}: ${photo.alt}`} aria-haspopup="dialog" tabindex={i === 0 ? 0 : -1} disabled>
         <img class="album-photo" src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" draggable="false" />
@@ -164,6 +164,7 @@ const trackId = `album-${id}-photos`;
   .album-photo-button:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
   .album-expand { position: absolute; right: 14px; bottom: 14px; display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--border-strong); border-radius: 9px; background: var(--header-bg); color: var(--text); pointer-events: none; }
   .album-photo-button:hover .album-expand { color: var(--accent); }
+  .album-slide--graphic .album-expand { top: 14px; bottom: auto; }
   .album-photo { position: relative; width: 100%; height: 100%; object-fit: contain; user-select: none; }
   .album-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; border-top: 1px solid var(--border); }
   .album-footer h3 { font-size: 29px; letter-spacing: -.02em; }

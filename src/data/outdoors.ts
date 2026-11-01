@@ -3,6 +3,7 @@ export interface OutdoorPhoto {
   alt: string;
   width: number;
   height: number;
+  kind?: "photo" | "graphic";
 }
 
 export const outdoorAlbums: { id: string; title: string; photos: OutdoorPhoto[] }[] = [
@@ -20,6 +21,7 @@ export const outdoorAlbums: { id: string; title: string; photos: OutdoorPhoto[] 
     title: "14er",
     photos: [
       { src: "/img/life/14er/mountain-02.webp", alt: "Warm light across a rocky mountain ridge", width: 1600, height: 1200 },
+      { src: "/img/life/14er/summit-list.png", alt: "Colorado 14er list: Quandary Peak, 14,272 ft; Grays Peak, 14,275 ft; Torreys Peak, 14,272 ft. Decalibron (4 peaks): Mount Democrat, 14,154 ft; Mount Cameron, 14,248 ft; Mount Lincoln, 14,293 ft; Mount Bross, 14,178 ft. Elevations from 14ers.com.", width: 2400, height: 1800, kind: "graphic" },
       { src: "/img/life/14er/mountain-07.webp", alt: "Panoramic view of rugged mountain peaks beneath a blue sky", width: 1600, height: 1067 },
       { src: "/img/life/14er/mountain-01.webp", alt: "A rocky mountain ridge beneath a clear blue sky", width: 1200, height: 1600 },
       { src: "/img/life/14er/mountain-03.webp", alt: "A starry sky above a mountain campsite", width: 1067, height: 1600 },

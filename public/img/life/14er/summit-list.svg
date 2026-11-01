@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200" role="img" aria-labelledby="title description">
+  <title id="title">Colorado 14er list</title>
+  <desc id="description">Quandary Peak: 14,272 ft. Grays Peak: 14,275 ft. Torreys Peak: 14,272 ft. Decalibron: Mount Democrat, 14,154 ft; Mount Cameron, 14,248 ft; Mount Lincoln, 14,293 ft; Mount Bross, 14,178 ft. Elevations from 14ers.com.</desc>
+  <!-- Elevations checked against https://www.14ers.com/14ers and
+       https://www.14ers.com/route.php?route=bros6 on 2026-11-01.
+       Export this SVG to summit-list.png at 2400 x 1800 with sharp. -->
+  <defs>
+    <linearGradient id="background" x2="1" y2="1">
+      <stop stop-color="#101222"/>
+      <stop offset="1" stop-color="#242037"/>
+    </linearGradient>
+    <linearGradient id="ridge" x2="0" y2="1">
+      <stop stop-color="#c0aff5" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#c0aff5" stop-opacity="0"/>
+    </linearGradient>
+    <style>
+      text { font-family: 'DejaVu Sans', sans-serif; fill: #f2effa; }
+      .group { font-size: 30px; letter-spacing: 4px; fill: #c0aff5; }
+      .peak { font-size: 50px; }
+      .height { font-size: 52px; text-anchor: end; fill: #ded4ff; font-variant-numeric: tabular-nums; }
+      .unit { font-size: 34px; fill: #aaa3be; }
+      .rule { stroke: #49425f; stroke-width: 1.5; }
+    </style>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#background)"/>
+  <rect x="36" y="36" width="1528" height="1128" rx="28" fill="none" stroke="#49425f"/>
+
+  <text x="104" y="116" font-size="29" letter-spacing="6" fill="#c0aff5">COLORADO / FOURTEENERS</text>
+  <text x="98" y="220" style="font-family: 'DejaVu Serif', serif; font-size: 96px;">14er List</text>
+  <path d="M1030 226 1134 130 1186 176 1280 88 1400 207 1441 166 1496 226V260H1030Z" fill="url(#ridge)"/>
+  <path d="M1030 226 1134 130 1186 176 1280 88 1400 207 1441 166 1496 226M1250 116 1274 146 1291 136 1319 164" fill="none" stroke="#b8a6ed" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>
+  <path class="rule" d="M104 266H1496"/>
+
+  <text class="group" x="104" y="326">01 / QUANDARY</text>
+  <text class="peak" x="104" y="392">Quandary Peak</text>
+  <text class="height" x="1496" y="392">14,272 <tspan class="unit">ft</tspan></text>
+  <path class="rule" d="M104 432H1496"/>
+
+  <text class="group" x="104" y="492">02 / GRAYS &amp; TORREYS</text>
+  <text class="peak" x="104" y="558">Grays Peak</text>
+  <text class="height" x="1496" y="558">14,275 <tspan class="unit">ft</tspan></text>
+  <text class="peak" x="104" y="630">Torreys Peak</text>
+  <text class="height" x="1496" y="630">14,272 <tspan class="unit">ft</tspan></text>
+  <path class="rule" d="M104 670H1496"/>
+
+  <text class="group" x="104" y="730">03 / DECALIBRON · 4 PEAKS</text>
+  <text class="peak" x="104" y="796">Mount Democrat</text>
+  <text class="height" x="1496" y="796">14,154 <tspan class="unit">ft</tspan></text>
+  <text class="peak" x="104" y="868">Mount Cameron</text>
+  <text class="height" x="1496" y="868">14,248 <tspan class="unit">ft</tspan></text>
+  <text class="peak" x="104" y="940">Mount Lincoln</text>
+  <text class="height" x="1496" y="940">14,293 <tspan class="unit">ft</tspan></text>
+  <text class="peak" x="104" y="1012">Mount Bross</text>
+  <text class="height" x="1496" y="1012">14,178 <tspan class="unit">ft</tspan></text>
+  <path class="rule" d="M104 1058H1496"/>
+
+  <text x="104" y="1114" style="font-size: 26px; fill: #aaa3be;">Summit elevations · feet above sea level</text>
+  <text x="1496" y="1114" style="font-size: 26px; text-anchor: end; fill: #aaa3be;">Source: 14ers.com</text>
+</svg>

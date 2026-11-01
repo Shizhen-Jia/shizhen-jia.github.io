@@ -103,7 +103,7 @@ import { outdoorAlbums } from "../data/outdoors";
   .gallery-controls button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--border); border-radius: 50%; background: var(--wash); color: var(--text); font-size: 20px; }
   .gallery-controls button:hover:not(:disabled) { border-color: var(--border-strong); background: var(--hover); }
   .gallery-controls button:disabled { opacity: .3; cursor: default; }
-  .album-rail { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 48px) / 2.2); gap: 24px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; padding: 4px 0 16px; scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; cursor: grab; }
+  .album-rail { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 48px) / 3); gap: 24px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; padding: 4px 0 16px; scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; cursor: grab; }
   .album-rail:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 20px; }
   .album-slot { min-width: 0; display: grid; scroll-snap-align: start; scroll-snap-stop: always; }
   .album-rail.is-dragging { scroll-snap-type: none; cursor: grabbing; user-select: none; }

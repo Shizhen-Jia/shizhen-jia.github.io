@@ -4,8 +4,7 @@ import ProjectGrid from "../components/ProjectGrid.astro";
 import NewsContent from "../components/NewsContent.astro";
 import PublicationPreview from "../components/PublicationPreview.astro";
 import CVContent from "../components/CVContent.astro";
-import OutdoorAlbum from "../components/OutdoorAlbum.astro";
-import { outdoorAlbums } from "../data/outdoors";
+import OutdoorGallery from "../components/OutdoorGallery.astro";
 ---
 <BaseLayout title="Shizhen Jia | Wireless Systems & Satellite Networks" active="home">
   <div class="container">
@@ -68,8 +67,7 @@ import { outdoorAlbums } from "../data/outdoors";
       <NewsContent />
     </section>
     <section id="some-cool-stuff" class="page-section" aria-labelledby="life-title">
-      <div class="section-heading"><div><p class="eyebrow">02 / A little time outdoors</p><h2 id="life-title">Some Cool Stuff</h2></div></div>
-      <div class="outdoor-grid">{outdoorAlbums.map(album => <OutdoorAlbum {...album} />)}</div>
+      <OutdoorGallery />
     </section>
     <section id="projects" class="page-section" aria-labelledby="projects-title">
       <div class="section-heading"><div><p class="eyebrow">03 / Research in focus</p><h2 id="projects-title">Projects</h2></div><p class="section-intro">Explore the questions, methods, and results behind my work. Each project opens into its own research story.</p></div>
@@ -123,8 +121,6 @@ import { outdoorAlbums } from "../data/outdoors";
     .education-entry p { font-size: 12px; margin-top: 5px; }
     .education-entry .education-date, .education-entry .education-note { font-size: 11px; color: var(--soft); }
     .education-bottom { padding-top: 22px; border-top: 1px solid var(--border); }
-    .outdoor-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
-    @media(min-width:1280px) { .outdoor-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
     @media(max-width:1100px) { .home-hero { gap: 45px; } .background-grid { gap: 32px; } .education-panel { padding-left: 26px; } .entry-date { white-space: normal; max-width: 100px; text-align: right; } }
     @media(max-width:760px) {
       .home-hero { grid-template-columns: 1fr; gap: 40px; padding: 45px 0; }
@@ -133,7 +129,6 @@ import { outdoorAlbums } from "../data/outdoors";
       .hero-copy h1 { font-size: 62px; }
       .background-grid { grid-template-columns: 1fr; padding-block: 40px; gap: 45px; }
       .education-panel { border: 0; padding: 0; }
-      .outdoor-grid { grid-template-columns: 1fr; }
       .entry-top { grid-template-columns: 42px 1fr; }
       .entry-date { grid-column: 2; max-width: none; text-align: left; margin-top: -8px; }
       .entry-description, .entry-location, .experience-links { margin-left: 0; }

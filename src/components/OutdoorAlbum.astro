@@ -155,7 +155,7 @@ const trackId = `album-${id}-photos`;
 </script>
 <style>
   .outdoor-album { min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 20px; background: linear-gradient(145deg, var(--surface-raised), var(--surface)); }
-  .album-track { display: flex; width: 100%; aspect-ratio: 4 / 3; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; background: var(--surface-soft); }
+  .album-track { display: flex; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; background: var(--surface-soft); }
   .album-track::-webkit-scrollbar { display: none; }
   .album-track:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
   .album-slide { position: relative; isolation: isolate; flex: 0 0 100%; min-width: 0; height: 100%; overflow: hidden; scroll-snap-align: start; scroll-snap-stop: always; }
